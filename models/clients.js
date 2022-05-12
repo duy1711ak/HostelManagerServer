@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const clientSchema = new mongoose.Schema({
-    UId: {
+    clientPhoneNum: {
         type: String,
         required: true,
     },
-	hostId: {
+	hostPhoneNum: {
         type: String,
         required: true
     },

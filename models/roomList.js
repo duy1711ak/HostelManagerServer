@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const roomListSchema = new mongoose.Schema({
-    hostId: {
+    hostPhoneNum: {
         type: String,
         required: true,
     },
-	Address: {
+	address: {
         type: String,
         required: true,
     },
@@ -15,10 +15,7 @@ const roomListSchema = new mongoose.Schema({
     },
 	roomList : [
 		{
-            roomId : {
-                type: String,
-                required: true,
-            }, roomName: {
+            roomName: {
                 type: String,
                 required: true,
             }

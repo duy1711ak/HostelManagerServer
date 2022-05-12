@@ -1,22 +1,26 @@
 const mongoose = require('mongoose');
 
 const notificationSchema = new mongoose.Schema({
-    hostId: {
+    hostPhoneNum: {
         type: String,
         required: true,
     },
-	createAt: {
-        type: DateTime,
-        required: true
-    },
-	Subject: {
-        type: String,
-        required: true,
-    },
-	Content: {
-        type: String,
-        required: true,
-    }
+    notification: [
+        {
+            createAt: {
+                type: DateTime,
+                required: true
+            },
+            subject: {
+                type: String,
+                required: true,
+            },
+            content: {
+                type: String,
+                required: true,
+            }
+        }
+    ]
 })
 
 module.exports = mongoose.model("Notification", notificationSchema, "Notification")
