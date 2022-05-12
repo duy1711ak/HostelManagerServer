@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const notificationSchema = new mongoose.Schema({
-    hostPhoneNum: {
-        type: String,
+    hostId: {
+        type: Number,
         required: true,
     },
     notification: [

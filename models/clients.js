@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const clientSchema = new mongoose.Schema({
-    clientPhoneNum: {
-        type: String,
+    clientId: {
+        type: Number,
         required: true,
     },
-	hostPhoneNum: {
-        type: String,
+	hostId: {
+        type: Number,
         required: true
     },
 	roomId: {

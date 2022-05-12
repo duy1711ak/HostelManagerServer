@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
 const roomListSchema = new mongoose.Schema({
-    hostPhoneNum: {
-        type: String,
+    hostId: {
+        type: Number,
         required: true,
     },
 	address: {
