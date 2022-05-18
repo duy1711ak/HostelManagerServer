@@ -2,18 +2,33 @@ const express = require('express')
 const router = express.Router()
 const usersModel = require('../models/users.js')
 
-router.post('/', async (request, response) => {
+router.post('/', async (req, res) => {
+    const existUser = await usersModel.find();
+    const currentLength = existUser.length;
+    var currentMaxId = await usersModel.find().sort({UId: -1}).limit(1);
+    if (currentMaxId.length == 0) {
+        currentMaxId = 0
+    } else {
+        currentMaxId = currentMaxId[0].UId;
+    }
     const user = new usersModel({
-        name: request.body.name,
-        phoneNum: request.body.phoneNum,
-        password: request.body.password,
-        isClient: request.body.isClient
+        UId: currentMaxId + 1,
+        name: req.body.name,
+        phoneNum: req.body.phoneNum,
+        username: req.body.username,
+        password: req.body.password,
+        isClient: req.body.isClient
     });
     try {
-        const newUser = await user.save();
-        await response.send(newUser);
+        const existUser = await usersModel.find({ username: req.body.username });
+        if (existUser.length != 0) {
+            res.status(400).send("Username already exists")
+        } else {
+            const newUser = await user.save();
+            res.send(newUser);
+        }
     } catch (err) {
-        response.status(400).send(err);
+        res.status(400).send(err);
     }
 })
 

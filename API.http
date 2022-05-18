@@ -1,0 +1,592 @@
+##############################################################
+# Đăng ký
+# Gửi POST request đến server với phần body như bên dưới
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{    
+    "name": "gia thinh",
+    "phoneNum": "1234",
+    "username": "giathinh2112",
+    "password": "123",
+    "isClient": "false"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công:
+
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 147
+ETag: W/"93-YUZ9+oL6wzFB4EHilsznIKemqU0"
+Date: Wed, 18 May 2022 08:07:37 GMT
+Connection: close
+
+{
+  "UId": 1,
+  "name": "gia thinh",
+  "phoneNum": "1234",
+  "username": "giathinh2112",
+  "password": "123",
+  "isClient": false,
+  "_id": "6284a949124801f38ab610bf",
+  "__v": 0
+}
+
+# - Thất bại: username đã tồn tại
+
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 23
+ETag: W/"17-E4T25PQUtauG+EQ3YIDxienyixk"
+Date: Wed, 18 May 2022 08:08:32 GMT
+Connection: close
+
+Username already exists
+
+##############################################################
+# Đăng nhập
+# Gửi POST request đến server với phần body như bên dưới
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "giathinh2112",
+    "password": "123"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công:
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 331
+ETag: W/"14b-RT4TPwcP3V6WOcGIQYfw3Qyh9Tg"
+Date: Wed, 18 May 2022 08:13:51 GMT
+Connection: close
+
+{
+  "user": {
+    "_id": "6284a949124801f38ab610bf",
+    "UId": 1,
+    "name": "gia thinh",
+    "phoneNum": "1234",
+    "username": "giathinh2112",
+    "password": "123",
+    "isClient": false,
+    "__v": 0
+  },
+  "acccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiZ2lhdGhpbmgyMTEyIiwiaWF0IjoxNjUyODYxNjMxLCJleHAiOjE2NTI5NDgwMzF9.NJL21gK3KKJ1vVpwL_3gMj58KLDU9H54V6io3HY28yI"
+}
+
+# - Thất bại: sai username hoặc password
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 33
+ETag: W/"21-L+kNJTWU6VbiFPbMcC5QebK8S50"
+Date: Wed, 18 May 2022 08:15:43 GMT
+Connection: close
+
+Username or password is incorrect
+
+##############################################################
+# Lấy thông tin  (tên nhà trọ, địa chỉ nhà trọ, id phòng) ứng với clientId
+# Gửi GET request đến server với phần body như bên dưới
+GET http://localhost:5000/client/info
+Content-Type: application/json
+
+{
+    "clientId": "2"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 65
+ETag: W/"41-JlJcd/Xro9a2/oxq1wyIrdi7FNQ"
+Date: Wed, 18 May 2022 08:25:05 GMT
+Connection: close
+
+{
+  "hostelName": "Phòng 1",
+  "address": "Ho Chi Minh City",
+  "roomId": 1
+}
+
+# - Thất bại: khách thuê chưa được thêm vào phòng trọ nào nên chưa lấy được thông tin 
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 31
+ETag: W/"1f-0MDVTrQ3SyrMlvwEiTjiLVaaDgw"
+Date: Wed, 18 May 2022 08:21:15 GMT
+Connection: close
+
+Client is not added to any room
+
+##############################################################
+# Lấy danh sách thông báo ứng với clientId
+# Gửi GET request đến server với phần body như bên dưới
+GET http://localhost:5000/client/notification
+Content-Type: application/json
+
+{
+    "clientId" : "2"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 2
+ETag: W/"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w"
+Date: Wed, 18 May 2022 08:40:53 GMT
+Connection: close
+
+[]
+
+# - Thất bại: khách thuê chưa được thêm vào phòng trọ nào nên chưa lấy được thông báo
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 31
+ETag: W/"1f-0MDVTrQ3SyrMlvwEiTjiLVaaDgw"
+Date: Wed, 18 May 2022 08:41:52 GMT
+Connection: close
+
+Client is not added to any room
+
+##############################################################
+# Lấy danh sách người thuê ứng với hostId
+# Gửi GET request đến server với phần body như bên dưới
+
+GET http://localhost:5000/host/users
+Content-Type: application/json
+
+{
+    "hostId": "2"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 79
+ETag: W/"4f-eIBTbzeWRdbv9Z6bv8CesC12qOo"
+Date: Wed, 18 May 2022 08:52:44 GMT
+Connection: close
+
+[
+  {
+    "_id": "6284ad5c09ea4ccdce828c4a",
+    "clientId": 2,
+    "hostId": 1,
+    "roomId": 1,
+    "__v": 0
+  }
+]
+
+# - Thất bại: hostId không hợp lệ (Id của client) hoặc không tồn tại hostId
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 15
+ETag: W/"f-J73oXps4BWj6y4UAx7Lq0QiykSI"
+Date: Wed, 18 May 2022 08:55:02 GMT
+Connection: close
+
+Invalid host id
+
+##############################################################
+# Thêm người thuê ứng với hostId (thêm người thuê vào phòng, nhà trọ)
+# Gửi POST request đến server với phần body như bên dưới
+POST http://localhost:5000/host/users
+Content-Type: application/json
+
+{
+    "hostId": "1",
+    "clientId": "2",
+    "roomId": "1"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 69
+ETag: W/"45-qWwBKtPZkYfhD5w4NvPgxBmJxLQ"
+Date: Wed, 18 May 2022 08:59:01 GMT
+Connection: close
+
+{
+  "clientId": 3,
+  "hostId": 1,
+  "roomId": 1,
+  "_id": "6284b555f8606af113b0918f"
+}
+
+# - Thất bại: khách thuê đã được thêm vào 1 phòng khác (Client already exists in a room) 
+# hoặc hostId không tồn tại (Host does not exist), clientId không tồn tại (Client does not exist)
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 31
+ETag: W/"1f-f4WbXGCnFAOSoKJVG5d/Dxf4ocg"
+Date: Wed, 18 May 2022 09:00:38 GMT
+Connection: close
+
+Client already exists in a room
+
+##############################################################
+# Sửa thông tin người dùng (cả chủ trọ) với UId
+# Gửi PUT request đến server với phần body như bên dưới
+PUT http://localhost:5000/host/users
+Content-Type: application/json
+
+{
+    "UId": "1",
+    "name": "newHostName",
+    "phoneNum": "0123456789",
+    "password": "12345"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 157
+ETag: W/"9d-TZywzJoOL7IJ7jycL5cZW3A8g5c"
+Date: Wed, 18 May 2022 09:15:57 GMT
+Connection: close
+
+{
+  "_id": "6284a949124801f38ab610bf",
+  "UId": 1,
+  "name": "newHostName",
+  "phoneNum": "0123456789",
+  "username": "giathinh2112",
+  "password": "12345",
+  "isClient": false,
+  "__v": 0
+}
+
+##############################################################
+# Xóa người dùng (chỉ client)
+# Gửi DELETE request đến server với phần body như bên dưới
+DELETE http://localhost:5000/host/users
+Content-Type: application/json
+
+{
+    "clientId": "3"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 28
+ETag: W/"1c-BmejN3QqiqCt4YSuFWq8QCooSdU"
+Date: Wed, 18 May 2022 09:22:09 GMT
+Connection: close
+
+User is successfully deleted
+
+##############################################################
+# Lấy danh sách phòng thuê ứng với hostId
+# Gửi GET request đến server với phần body như bên dưới
+GET http://localhost:5000/host/rooms
+Content-Type: application/json
+
+{
+    "hostId": "1"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 69
+ETag: W/"45-/QdrJmWClEefd6pfKY6o4NDYn1U"
+Date: Wed, 18 May 2022 09:26:44 GMT
+Connection: close
+
+[
+  {
+    "roomId": 1,
+    "roomName": "Phòng 1",
+    "_id": "6284ad4909ea4ccdce828c44"
+  }
+]
+
+# - Thất bại: hostId không tồn tại
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 19
+ETag: W/"13-uomW3eAVSJf3vBFP7LWogWrUh1o"
+Date: Wed, 18 May 2022 09:27:40 GMT
+Connection: close
+
+Host does not exist
+
+##############################################################
+# Thêm phòng thuê ứng theo hostId
+# Gửi POST request đến server với phần body như bên dưới
+POST http://localhost:5000/host/rooms
+Content-Type: application/json
+
+{
+    "hostId": "1",
+    "hostelName": "TDTD",
+    "address": "Ho Chi Minh City",
+    "roomId": "2",
+    "roomName": "Phòng 2"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 255
+ETag: W/"ff-HRt3LUgzcUIttCiPHE3QjHWh4S4"
+Date: Wed, 18 May 2022 09:34:02 GMT
+Connection: close
+
+{
+  "_id": "6284ad4909ea4ccdce828c43",
+  "hostId": 1,
+  "address": "Ho Chi Minh City",
+  "hostelName": "Phòng 1",
+  "roomList": [
+    {
+      "roomId": 1,
+      "roomName": "Phòng 1",
+      "_id": "6284ad4909ea4ccdce828c44"
+    },
+    {
+      "roomId": 2,
+      "roomName": "Phòng 2",
+      "_id": "6284bd8af8606af113b091b0"
+    }
+  ],
+  "__v": 0
+}
+
+# - Thất bại: hostId không tồn tại hoặc phòng đã tồn tại
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 29
+ETag: W/"1d-wrzE3/VgBmdOlMnksqxDwEGS6k0"
+Date: Wed, 18 May 2022 09:33:48 GMT
+Connection: close
+
+Room already exists in hostel
+
+##############################################################
+# Sửa thông tin phòng thuê ứng với hostId, roomId
+# Gửi PUT request đến server với phần body như bên dưới
+PUT http://localhost:5000/host/rooms
+Content-Type: application/json
+
+{
+    "hostId": "1",
+    "roomId": "2",
+    "roomName": "Phòng 2"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 255
+ETag: W/"ff-HRt3LUgzcUIttCiPHE3QjHWh4S4"
+Date: Wed, 18 May 2022 09:38:37 GMT
+Connection: close
+
+{
+  "_id": "6284ad4909ea4ccdce828c43",
+  "hostId": 1,
+  "address": "Ho Chi Minh City",
+  "hostelName": "Phòng 1",
+  "roomList": [
+    {
+      "roomId": 1,
+      "roomName": "Phòng 1",
+      "_id": "6284ad4909ea4ccdce828c44"
+    },
+    {
+      "roomId": 2,
+      "roomName": "Phòng 2",
+      "_id": "6284bd8af8606af113b091b0"
+    }
+  ],
+  "__v": 0
+}
+
+# - Thất bại: hostId không tồn tại hoặc phòng không tồn tại
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 19
+ETag: W/"13-vpEGGQMvPhl3K5rCd26tZ3z7sd4"
+Date: Wed, 18 May 2022 09:37:25 GMT
+Connection: close
+
+Room does not exist
+
+##############################################################
+# Xóa phòng theo hostId, roomId
+# Gửi DELETE request đến server với phần body như bên dưới
+DELETE http://localhost:5000/host/rooms
+Content-Type: application/json
+
+{
+    "hostId": "1",
+    "roomId": "2"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 28
+ETag: W/"1c-16nc46bFKH5v8CsLf1TxaKEefwE"
+Date: Wed, 18 May 2022 09:41:02 GMT
+Connection: close
+
+Room is successfully deleted
+# - Thất bại: hostId không tồn tại hoặc phòng không tồn tại
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 19
+ETag: W/"13-vpEGGQMvPhl3K5rCd26tZ3z7sd4"
+Date: Wed, 18 May 2022 09:40:51 GMT
+Connection: close
+
+Room does not exist
+
+##############################################################
+# Lấy danh sách thông báo
+# Gửi GET request đến server với phần body như bên dưới
+GET http://localhost:5000/host/notification
+Content-Type: application/json
+
+{
+    "hostId": "3"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 192
+ETag: W/"c0-DWDg9kBkSkFKA+PRSSDV1OnpQIA"
+Date: Wed, 18 May 2022 09:43:14 GMT
+Connection: close
+
+[
+  {
+    "createAt": "2022-05-17T23:55:03.000Z",
+    "subject": "Thu phí điện nước tháng 6",
+    "content": "Các phòng thanh toán phí điện nước trước 30/06",
+    "_id": "6284bfadf8606af113b091cd"
+  }
+]
+
+# - Thất bại: hostId không tồn tại hoặc phòng không tồn tại
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 19
+ETag: W/"13-uomW3eAVSJf3vBFP7LWogWrUh1o"
+Date: Wed, 18 May 2022 09:43:38 GMT
+Connection: close
+
+Host does not exist
+
+##############################################################
+# Thêm thông báo
+# Gửi GET request đến server với phần body như bên dưới
+POST http://localhost:5000/host/notification
+Content-Type: application/json
+
+{
+    "hostId": "2",
+    "createAt": "2022-05-18 06:55:03",
+    "subject": "Thu phí điện nước tháng 6",
+    "content": "Các phòng thanh toán phí điện nước trước 30/06"
+}
+
+###
+# Kết quả trả về có dạng như sau
+# - Thành công: 
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 261
+ETag: W/"105-Wwl+nVAf/PzS6ETtAndiLI477pk"
+Date: Wed, 18 May 2022 09:46:04 GMT
+Connection: close
+
+{
+  "hostId": 1,
+  "notification": [
+    {
+      "createAt": "2022-05-17T23:55:03.000Z",
+      "subject": "Thu phí điện nước tháng 6",
+      "content": "Các phòng thanh toán phí điện nước trước 30/06",
+      "_id": "6284c05cf8606af113b091db"
+    }
+  ],
+  "_id": "6284c05cf8606af113b091da",
+  "__v": 0
+}
+
+# - Thất bại: hostId không tồn tại
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 19
+ETag: W/"13-uomW3eAVSJf3vBFP7LWogWrUh1o"
+Date: Wed, 18 May 2022 09:47:33 GMT
+Connection: close
+
+Host does not exist
+
+
+
+
+
+
+

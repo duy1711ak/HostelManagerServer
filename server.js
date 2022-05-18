@@ -1,24 +1,36 @@
-const express = require('express')
-const dotenv = require('dotenv')
-const mongoose = require('mongoose')
-dotenv.config()
+const express = require('express');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 
-const app = express()
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+const URI = process.env.DB_CONNECT;
+
 app.use(express.json())
 
-port = process.env.PORT || 3000;
-app.listen(port, ()=>{
-    console.log("Server is lisening on port 3000")
-});
-
 //connect db
-mongoose.connect(
-    process.env.DB_CONNECT,
-    { useUnifiedTopology: true, useNewUrlParser: true },
-    () => console.log('DB Connected')
-);
+mongoose
+    .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => {
+        console.log('Connected to DB');
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    })
+    .catch(err => {
+        console.log('err', err);
+    });
 
 //route
-const registerRoute = require('./routes/register.js')
+const registerRoute = require('./routes/register.js');
+const clientRoute = require('./routes/client.js');
+const loginRoute = require('./routes/login.js');
+const hostRoute = require('./routes/host.js');
 
 app.use('/register', registerRoute);
+app.use('/client', clientRoute);
+app.use('/host', hostRoute);
+app.use('/login', loginRoute);

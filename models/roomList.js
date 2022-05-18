@@ -16,7 +16,7 @@ const roomListSchema = new mongoose.Schema({
 	roomList : [
 		{
             roomId: {
-                type: String,
+                type: Number,
                 required: true,
             },
             roomName: {

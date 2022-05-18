@@ -10,7 +10,7 @@ const clientSchema = new mongoose.Schema({
         required: true
     },
 	roomId: {
-        type: String,
+        type: Number,
         required: true
     }
 })

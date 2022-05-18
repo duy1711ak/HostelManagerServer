@@ -8,7 +8,7 @@ const notificationSchema = new mongoose.Schema({
     notification: [
         {
             createAt: {
-                type: DateTime,
+                type: Date,
                 required: true
             },
             subject: {

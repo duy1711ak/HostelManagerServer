@@ -1,0 +1,144 @@
+# Đăng ký
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{    
+    "name": "gia thinh",
+    "phoneNum": "1234",
+    "username": "giathinh123",
+    "password": "123",
+    "isClient": "true"
+}
+
+###
+# Đăng nhập
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "giathinh12",
+    "password": "123"
+}
+
+###
+# Lấy thông tin client (tên nhà trọ, địa chỉ nhà trọ, id phòng)
+GET http://localhost:5000/client/info
+Content-Type: application/json
+
+{
+    "clientId": "2"
+}
+
+###
+# Lấy danh sách thông báo ứng với id của client
+GET http://localhost:5000/client/notification
+Content-Type: application/json
+
+{
+    "clientId" : "2"
+}
+
+###
+# Lấy danh sách người thuê
+GET http://localhost:5000/host/users
+Content-Type: application/json
+
+{
+    "hostId": "3"
+}
+
+###
+# Thêm người thuê
+POST http://localhost:5000/host/users
+Content-Type: application/json
+
+{
+    "hostId": "1",
+    "clientId": "2",
+    "roomId": "1"
+}
+
+###
+# Sửa thông tin người thuê ứng với uid
+PUT http://localhost:5000/host/users
+Content-Type: application/json
+
+{
+    "UId": "1",
+    "name": "changed name",
+    "phoneNum": "0123456789",
+    "password": "12345"
+}
+
+###
+# Xóa người dùng theo Id 
+DELETE http://localhost:5000/host/users
+Content-Type: application/json
+
+{
+    "clientId": "2"
+}
+
+###
+# Lấy danh sách phòng thuê theo hostId
+GET http://localhost:5000/host/rooms
+Content-Type: application/json
+
+{
+    "hostId": "1"
+}
+
+###
+# Thêm phòng thuê theo hostId
+POST http://localhost:5000/host/rooms
+Content-Type: application/json
+
+{
+    "hostId": "1",
+    "hostelName": "TDTD",
+    "address": "Ho Chi Minh City",
+    "roomId": "1",
+    "roomName": "Phòng 1"
+}
+
+###
+# Sửa thông tin phòng ứng với hostId, roomId
+PUT http://localhost:5000/host/rooms
+Content-Type: application/json
+
+{
+    "hostId": "1",
+    "roomId": "1",
+    "roomName": "Phòng 11"
+}
+
+###
+# Xóa phòng với hostId, roomId
+DELETE http://localhost:5000/host/rooms
+Content-Type: application/json
+
+{
+    "hostId": "1",
+    "roomId": "1"
+}
+
+###
+# Lấy danh sách thông báo
+GET http://localhost:5000/host/notification
+Content-Type: application/json
+
+{
+    "hostId": "1"
+}
+
+###
+# Thêm thông báo
+POST http://localhost:5000/host/notification
+Content-Type: application/json
+
+{
+    "hostId": "1",
+    "createAt": "2022-05-18 06:55:03",
+    "subject": "Thu phí điện nước tháng 6",
+    "content": "Các phòng thanh toán phí điện nước trước 30/06"
+}
