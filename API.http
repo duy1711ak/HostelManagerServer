@@ -215,9 +215,9 @@ POST http://hostel0tdtd.herokuapp.com/host/1/users
 Content-Type: application/json
 
 {
-    "clientId": "6",
+    "clientId": "7",
     "roomName": "002",
-    "phoneNum": "656"
+    "phoneNum": "369"
 }
 
 ###
