@@ -53,7 +53,7 @@ router.post('/:id/clients', async (req, res) => {
                         clientName: name
                     });
                     client.save();
-                    res.status(200).send(client);
+                    res.status(200).send();
                 }
             }
         }
@@ -67,7 +67,6 @@ router.delete('/:id/clients/:uid', async (req, res) => {
     try {
         const hId = req.params.id;
         const uid = parseInt(req.params.uid);
-        await usersModel.findOneAndDelete({ UId: req.params.uid });
         await clientModel.findOneAndDelete({ clientId: req.params.uid });
         res.status(200).send("User is successfully deleted");
     } catch (err) {
