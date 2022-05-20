@@ -37,7 +37,7 @@ router.post('/:id/users', async (req, res) => {
                 res.status(400).send("Room does not exist");
             } else {
                 try{
-                    const client = await usersModel.find({$and:[{"UId": req.body.clientId},{"isClient": true},{"phoneNum" : res.body.phoneNum}]})
+                    const client = await usersModel.find({$and:[{"UId": req.body.clientId},{"phoneNum" : res.body.phoneNum}]})
                 }
                 catch (err){
                     res.status(401).send();
