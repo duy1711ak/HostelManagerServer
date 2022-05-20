@@ -139,6 +139,10 @@ router.put('/:id/rooms/:rid', async (req, res) => {
             } else {
                 roomList = roomList[0].roomList;
                 var existRoom = roomList.filter((x) => x.roomId == roomId);
+                var sameNameRoom = roomList.filter((x)=> x.roomName == req.body.roomName);
+                if (sameNameRoom.length > 0) {
+                    res.status(400).send("Room name is exist");
+                }
                 if (existRoom.length == 0) {
                     res.status(400).send("Room does not exist");
                 } else {
