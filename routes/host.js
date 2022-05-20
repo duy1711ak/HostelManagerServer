@@ -117,7 +117,7 @@ router.post('/:id/rooms', async (req, res) => {
                 };
                 roomList.push(newRoom);
                 roomList = await roomModel.findOneAndUpdate({ hostId: hId }, {roomList: roomList} , {new: true});
-                res.status(200).send(roomList);
+                res.status(200).send();
             }
         }
     } catch (err) {
