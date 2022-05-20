@@ -36,7 +36,7 @@ router.post('/:id/users', async (req, res) => {
             if (roomList.length == 0) {
                 res.status(400).send("Room does not exist");
             } else {
-                const checkPhone = await usersModel.find({$and:[{"UId": req.body.clientId},{"phoneNum" : res.body.phoneNum}]})
+                const checkPhone = await usersModel.find({$and:[{"UId": req.body.clientId},{"phoneNum" : req.body.phoneNum}]})
                 if (checkPhone.length == 0) {
                     res.status(400).send("Phone number is not match with phone number client used to register.")
                 }
