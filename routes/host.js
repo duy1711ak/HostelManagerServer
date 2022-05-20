@@ -15,7 +15,7 @@ router.get('/:id/users', async (req, res) => {
             res.status(400).send("Invalid host id");
         } else {
             clientList = await clientModel.find({ hostId: req.body.hostId });
-            res.status(200).send(clientList);
+            res.status(200).send();
         }
     } catch (err) {
         res.status(400).send(err);
@@ -50,7 +50,7 @@ router.post('/:id/users', async (req, res) => {
                         roomId: req.body.roomId
                     });
                     client.save();
-                    res.status(200).send(client);
+                    res.status(200).send();
                 }
             }
         }
