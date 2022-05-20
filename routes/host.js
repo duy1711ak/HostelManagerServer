@@ -8,13 +8,13 @@ const router = express.Router();
 router.get('/:id/users', async (req, res) => {
     try {
         const hId = parseInt(req.params.id);
-        const host = await usersModel.find( {UId: req.body.hostId} );
+        const host = await usersModel.find( {UId: hId} );
         if (host.length == 0) {
             res.status(400).send("Host id does not exist");
         } else if (host[0].isClient) {
             res.status(400).send("Invalid host id");
         } else {
-            clientList = await clientModel.find({ hostId: req.body.hostId });
+            clientList = await clientModel.find({ hostId: hId });
             res.status(200).send();
         }
     } catch (err) {

@@ -253,7 +253,7 @@ Client already exists in a room
 ##############################################################
 # Xóa người dùng (chỉ client)
 # Gửi DELETE request đến server với phần body như bên dưới
-DELETE http://hostel0tdtd.herokuapp.com/host/1/users/3
+DELETE http://hostel0tdtd.herokuapp.com/host/1/users/9
 Content-Type: application/json
 
 ###
