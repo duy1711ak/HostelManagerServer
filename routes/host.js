@@ -25,8 +25,8 @@ router.get('/:id/users', async (req, res) => {
 router.post('/:id/users', async (req, res) => {
     try {
         const hostId = req.params.id;
-        const client = await usersModel.find({$and:[{"UId": req.body.clientId},{"isClient": true}]});
-        const host = await usersModel.find({$and:[{"UId": hostId},{"isClient": false}]});
+        const client = await usersModel.find({$and:[{UId: req.body.clientId},{isClient: true}]});
+        const host = await usersModel.find({$and:[{UId: hostId},{isClient: false}]});
         var roomList = await roomModel.find({ hostId: hostId });
         if (client.length == 0) res.status(400).send("Client does not exist");
         else if (host.length == 0) res.status(400).send("Host does not exist");
@@ -36,7 +36,12 @@ router.post('/:id/users', async (req, res) => {
             if (roomList.length == 0) {
                 res.status(400).send("Room does not exist");
             } else {
-                const client = await usersModel.find({$and:[{"UId": req.body.clientId},{"isClient": true},{"phoneNum" : res.body.phoneNum}]})
+                try{
+                    const client = await usersModel.find({$and:[{"UId": req.body.clientId},{"isClient": true},{"phoneNum" : res.body.phoneNum}]})
+                }
+                catch (err){
+                    res.status(401).send();
+                }
                 if (client.length == 0) {
                     res.status(400).send("Phone number is not match with phone number client used to register.")
                 }
