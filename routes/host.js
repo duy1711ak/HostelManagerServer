@@ -15,8 +15,12 @@ router.get('/:id/users', async (req, res) => {
             res.status(400).send("Invalid host id");
         } else {
             clientList = await clientModel.find({ hostId: hId });
-            
-            res.status(200).send(clientList);
+            result = clientList.map((client) => {
+                const c = await usersModel.findOne( {UId: client.clientId} );
+                client.phoneNum = c.phoneNum;
+                return client;
+            })
+            res.status(200).send({list: result});
         }
     } catch (err) {
         res.status(400).send(err);
