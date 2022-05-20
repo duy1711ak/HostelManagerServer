@@ -192,7 +192,7 @@ Connection: close
     "_id": "6284ad5c09ea4ccdce828c4a",
     "clientId": 2,
     "hostId": 1,
-    "roomId": 1,
+    "roomName": "002",
     "__v": 0
   }
 ]
@@ -216,7 +216,7 @@ Content-Type: application/json
 
 {
     "clientId": "6",
-    "roomId": "2",
+    "roomName": "002",
     "phoneNum": "656"
 }
 

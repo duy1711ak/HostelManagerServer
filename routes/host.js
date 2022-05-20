@@ -47,7 +47,7 @@ router.post('/:id/users', async (req, res) => {
                     const client = new clientModel({
                         clientId: req.body.clientId,
                         hostId: hostId,
-                        roomId: req.body.roomName
+                        roomName: req.body.roomName
                     });
                     client.save();
                     res.status(200).send();
