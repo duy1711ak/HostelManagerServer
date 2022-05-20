@@ -5,7 +5,7 @@ const roomModel = require("../models/roomList");
 const notificationModel = require("../models/notification");
 const router = express.Router();
 
-router.get('/:id/users', async (req, res) => {
+router.get('/:id/clients', async (req, res) => {
     try {
         const hId = parseInt(req.params.id);
         const host = await usersModel.find( {UId: hId} );
@@ -27,7 +27,7 @@ router.get('/:id/users', async (req, res) => {
     }
 });
 
-router.post('/:id/users', async (req, res) => {
+router.post('/:id/clients', async (req, res) => {
     try {
         const hostId = parseInt(req.params.id);
         const client = await usersModel.find({$and:[{UId: req.body.clientId},{isClient: true}]});
@@ -65,7 +65,7 @@ router.post('/:id/users', async (req, res) => {
 });
 
 
-router.delete('/:id/users/:uid', async (req, res) => {
+router.delete('/:id/clients/:uid', async (req, res) => {
     try {
         const hId = req.params.id;
         const uid = parseInt(req.params.uid);
