@@ -52,7 +52,7 @@ router.post('/:id/clients', async (req, res) => {
                         clientName: checkPhone.name
                     });
                     client.save();
-                    res.status(200).send();
+                    res.status(200).send(client);
                 }
             }
         }
