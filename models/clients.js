@@ -12,6 +12,10 @@ const clientSchema = new mongoose.Schema({
 	roomName: {
         type: String,
         required: true
+    },
+    phoneNum: {
+        type: String,
+        required: true
     }
 })
 
