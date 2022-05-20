@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/:id/users', async (req, res) => {
     try {
-        const hId = req.params.id;
+        const hId = parseInt(req.params.id);
         const host = await usersModel.find( {UId: req.body.hostId} );
         if (host.length == 0) {
             res.status(400).send("Host id does not exist");
@@ -24,7 +24,7 @@ router.get('/:id/users', async (req, res) => {
 
 router.post('/:id/users', async (req, res) => {
     try {
-        const hostId = req.params.id;
+        const hostId = parseInt(req.params.id);
         const client = await usersModel.find({$and:[{UId: req.body.clientId},{isClient: true}]});
         const host = await usersModel.find({$and:[{UId: hostId},{isClient: false}]});
         var roomList = await roomModel.find({ hostId: hostId });
@@ -68,7 +68,7 @@ router.post('/:id/users', async (req, res) => {
 router.delete('/:id/users/:uid', async (req, res) => {
     try {
         const hId = req.params.id;
-        const uid = req.params.uid;
+        const uid = parseInt(req.params.uid);
         await usersModel.findOneAndDelete({ UId: req.params.uid });
         await clientModel.findOneAndDelete({ clientId: req.params.uid });
         res.status(200).send("User is successfully deleted");
@@ -79,7 +79,7 @@ router.delete('/:id/users/:uid', async (req, res) => {
 
 router.get('/:id/rooms', async (req, res) => {
     try {
-        const hId = req.params.id;
+        const hId = parseInt(req.params.id);
         var roomList = await roomModel.find({ hostId: hId });
         const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
         if (host.length == 0) {
@@ -99,7 +99,7 @@ router.get('/:id/rooms', async (req, res) => {
 
 router.post('/:id/rooms', async (req, res) => {
     try {
-        const hId = req.params.id;
+        const hId = parseInt(req.params.id);
         var roomList = await roomModel.find({ hostId: hId });
         const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
         if (host.length == 0) {
@@ -127,8 +127,8 @@ router.post('/:id/rooms', async (req, res) => {
 
 router.put('/:id/rooms/:rid', async (req, res) => {
     try {
-        const hId = req.params.id;
-        roomId = req.params.rid;
+        const hId = parseInt(req.params.id);
+        const roomId = parseInt(req.params.rid);
         var roomList = await roomModel.find({ hostId: hId });
         const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
         if (host.length == 0) {
@@ -161,7 +161,7 @@ router.put('/:id/rooms/:rid', async (req, res) => {
 router.delete('/:id/rooms/:rid', async (req, res) => {
     try {
         const hId = req.params.id;
-        roomId = req.params.rid;
+        const roomId = parseInt(req.params.rid);
         var roomList = await roomModel.find({ hostId: hId});
         await clientModel.findOneAndDelete({ roomId: roomId});
         const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
