@@ -144,7 +144,7 @@ router.put('/:id/rooms', async (req, res) => {
                     existRoom = existRoom[0];
                     existRoom.roomName = req.body.roomName;
                     var newRoomList = await roomModel.findOneAndUpdate({ hostId: hId }, { roomList: roomList } , { new: true })
-                    res.status(200).send(newRoomList);
+                    res.status(200).send();
                 }
             }
         }
