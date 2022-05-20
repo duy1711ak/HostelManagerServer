@@ -6,7 +6,20 @@ const notificationModel = require("../models/notification");
 const router = express.Router();
 
 router.get('/:id/clients', async (req, res) => {
-    res.status(200).send();
+    try {
+        const hId = parseInt(req.params.id);
+        const host = await usersModel.find( {UId: hId} );
+        if (host.length == 0) {
+            res.status(400).send("Host id does not exist");
+        } else if (host[0].isClient) {
+            res.status(400).send("Invalid host id");
+        } else {
+            clientList = await clientModel.find({ hostId: hId });
+            res.status(200).send({list: clientList});
+        }
+    } catch (err) {
+        res.status(400).send(err);
+    }
 });
 
 router.post('/:id/clients', async (req, res) => {
@@ -34,7 +47,8 @@ router.post('/:id/clients', async (req, res) => {
                     const client = new clientModel({
                         clientId: req.body.clientId,
                         hostId: hostId,
-                        roomName: req.body.roomName
+                        roomName: req.body.roomName,
+                        phoneNum: req.body.phoneNum
                     });
                     client.save();
                     res.status(200).send();
