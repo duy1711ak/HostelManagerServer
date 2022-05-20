@@ -28,8 +28,8 @@ router.get(':id/info', async (req, res) => {
                 hostelName: roomInfo.hostelName,
                 address: roomInfo.address,
                 roomName: clientInfo.roomName,
-                hostName: hostInfo.name,
-                hostPhoneNum: hostInfo.phoneNum
+                // hostName: hostInfo.name,
+                // hostPhoneNum: hostInfo.phoneNum
             };
             res.status(200).send(clientInfo);
         }
