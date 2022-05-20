@@ -5,7 +5,7 @@ const notificationModel = require("../models/notification");
 const router = express.Router();
 const userModal = require('../models/users')
 
-router.get(':id/info', async (req, res) => {
+router.get('/:id/info', async (req, res) => {
     try {
         const clientId = parseInt(req.params.id);
         var clientInfo = await clientsModel.find({ "clientId": clientId });
@@ -14,13 +14,7 @@ router.get(':id/info', async (req, res) => {
         } else {
             clientInfo = clientInfo[0];
             const hostId = clientInfo.hostId;
-            var hostInfo;
-            try{
-                hostInfo = await userModal.find({UId: hostId})
-            }
-            catch(err){
-                res.status(401).send();
-            }
+            var hostInfo = await userModal.find({UId: hostId});
             var roomInfo = await roomListModel.find({ "hostId": hostId });
             roomInfo = roomInfo[0];
             
@@ -28,8 +22,8 @@ router.get(':id/info', async (req, res) => {
                 hostelName: roomInfo.hostelName,
                 address: roomInfo.address,
                 roomName: clientInfo.roomName,
-                // hostName: hostInfo.name,
-                // hostPhoneNum: hostInfo.phoneNum
+                hostName: hostInfo[0].name,
+                hostPhoneNum: hostInfo[0].phoneNum
             };
             res.status(200).send(clientInfo);
         }
