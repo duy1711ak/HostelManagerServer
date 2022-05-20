@@ -77,10 +77,11 @@ router.delete('/users', async (req, res) => {
     }
 });
 
-router.get('/rooms', async (req, res) => {
+router.get('/:id/rooms', async (req, res) => {
     try {
-        var roomList = await roomModel.find({ hostId: req.body.hostId });
-        const host = await usersModel.find({$and:[{"UId": req.body.hostId},{"isClient": false}]});
+        hId = req.params.id;
+        var roomList = await roomModel.find({ hostId: hId });
+        const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
         if (host.length == 0) {
             res.status(400).send("Host does not exist");
         } else {
@@ -96,10 +97,11 @@ router.get('/rooms', async (req, res) => {
     }
 });
 
-router.post('/rooms', async (req, res) => {
+router.post('/:id/rooms', async (req, res) => {
     try {
-        var roomList = await roomModel.find({ hostId: req.body.hostId });
-        const host = await usersModel.find({$and:[{"UId": req.body.hostId},{"isClient": false}]});
+        hId = req.params.id;
+        var roomList = await roomModel.find({ hostId: hId });
+        const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
         if (host.length == 0) {
             res.status(400).send("Host does not exist");
         } else {
@@ -114,7 +116,7 @@ router.post('/rooms', async (req, res) => {
                     roomName: req.body.roomName
                 };
                 roomList.push(newRoom);
-                roomList = await roomModel.findOneAndUpdate({ hostId: req.body.hostId }, {roomList: roomList} , {new: true});
+                roomList = await roomModel.findOneAndUpdate({ hostId: hId }, {roomList: roomList} , {new: true});
                 res.status(200).send(roomList);
             }
         }
@@ -123,10 +125,11 @@ router.post('/rooms', async (req, res) => {
     }
 });
 
-router.put('/rooms', async (req, res) => {
+router.put('/:id/rooms', async (req, res) => {
     try {
-        var roomList = await roomModel.find({ hostId: req.body.hostId });
-        const host = await usersModel.find({$and:[{"UId": req.body.hostId},{"isClient": false}]});
+        hId = req.params.id;
+        var roomList = await roomModel.find({ hostId: hId });
+        const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
         if (host.length == 0) {
             res.status(400).send("Host does not exist");
         } else {
@@ -140,7 +143,7 @@ router.put('/rooms', async (req, res) => {
                 } else {
                     existRoom = existRoom[0];
                     existRoom.roomName = req.body.roomName;
-                    var newRoomList = await roomModel.findOneAndUpdate({ hostId: req.body.hostId }, { roomList: roomList } , { new: true })
+                    var newRoomList = await roomModel.findOneAndUpdate({ hostId: hId }, { roomList: roomList } , { new: true })
                     res.status(200).send(newRoomList);
                 }
             }
@@ -150,11 +153,12 @@ router.put('/rooms', async (req, res) => {
     }
 });
 
-router.delete('/rooms', async (req, res) => {
+router.delete('/:id/rooms', async (req, res) => {
     try {
+        hId = req.params.id;
         var roomList = await roomModel.find({ hostId: req.body.hostId });
         await clientModel.findOneAndDelete({ roomId: req.body.roomId });
-        const host = await usersModel.find({$and:[{"UId": req.body.hostId},{"isClient": false}]});
+        const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
         if (host.length == 0) {
             res.status(400).send("Host does not exist");
         } else {
@@ -167,7 +171,7 @@ router.delete('/rooms', async (req, res) => {
                     res.status(400).send("Room does not exist");
                 } else {
                     var newRoomList = roomList.filter((x) => x.roomId != req.body.roomId);
-                    newRoomList = await roomModel.findOneAndUpdate({ hostId: req.body.hostId }, { roomList: newRoomList } , { new: true })
+                    newRoomList = await roomModel.findOneAndUpdate({ hostId: hId }, { roomList: newRoomList } , { new: true })
                     res.status(200).send("Room is successfully deleted");
                 }
             }
