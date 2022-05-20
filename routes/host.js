@@ -25,8 +25,8 @@ router.get('/:id/clients', async (req, res) => {
 router.post('/:id/clients', async (req, res) => {
     try {
         const hostId = parseInt(req.params.id);
-        const client = await usersModel.find({$and:[{UId: req.body.clientId},{isClient: true}]});
-        const host = await usersModel.find({$and:[{UId: hostId},{isClient: false}]});
+        const client = await usersModel.findOne({$and:[{UId: req.body.clientId},{isClient: true}]});
+        const host = await usersModel.findOne({$and:[{UId: hostId},{isClient: false}]});
         var roomList = await roomModel.find({ hostId: hostId });
         if (client.length == 0) res.status(400).send({message: "Client does not exist"});
         else if (host.length == 0) res.status(400).send({message: "Host does not exist"});
