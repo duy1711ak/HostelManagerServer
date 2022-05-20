@@ -16,6 +16,10 @@ const clientSchema = new mongoose.Schema({
     phoneNum: {
         type: String,
         required: true
+    },
+    clientName:{
+        type: String,
+        required: true
     }
 })
 

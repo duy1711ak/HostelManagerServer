@@ -48,7 +48,8 @@ router.post('/:id/clients', async (req, res) => {
                         clientId: req.body.clientId,
                         hostId: hostId,
                         roomName: req.body.roomName,
-                        phoneNum: req.body.phoneNum
+                        phoneNum: req.body.phoneNum,
+                        clientName: checkPhone.name
                     });
                     client.save();
                     res.status(200).send();
