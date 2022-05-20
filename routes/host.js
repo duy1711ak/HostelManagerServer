@@ -25,8 +25,10 @@ router.get('/:id/clients', async (req, res) => {
 router.post('/:id/clients', async (req, res) => {
     try {
         const hostId = parseInt(req.params.id);
-        const client = await usersModel.findOne({$and:[{UId: req.body.clientId},{isClient: true}]});
-        const host = await usersModel.findOne({$and:[{UId: hostId},{isClient: false}]});
+        const client = await usersModel.find({$and:[{UId: req.body.clientId},{isClient: true}]});
+        const phoneNum = client[0].phoneNum;
+        const name = client[0].name;
+        const host = await usersModel.find({$and:[{UId: hostId},{isClient: false}]});
         var roomList = await roomModel.find({ hostId: hostId });
         if (client.length == 0) res.status(400).send({message: "Client does not exist"});
         else if (host.length == 0) res.status(400).send({message: "Host does not exist"});
@@ -36,7 +38,7 @@ router.post('/:id/clients', async (req, res) => {
             if (roomList.length == 0) {
                 res.status(400).send({message: "Room does not exist"});
             } else {
-                if (client.phoneNum != req.body.phoneNum) {
+                if (phoneNum != req.body.phoneNum) {
                     res.status(400).send({message: "Phone number is not match with phone number client used to register."})
                 }
                 const existClient = await clientModel.find({ clientId: req.body.clientId });
@@ -47,8 +49,8 @@ router.post('/:id/clients', async (req, res) => {
                         clientId: req.body.clientId,
                         hostId: hostId,
                         roomName: req.body.roomName,
-                        phoneNum: req.body.phoneNum,
-                        clientName: client.name
+                        phoneNum: phoneNum,
+                        clientName: name
                     });
                     client.save();
                     res.status(200).send(client);
