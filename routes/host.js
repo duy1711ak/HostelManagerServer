@@ -103,29 +103,18 @@ router.post('/rooms', async (req, res) => {
         if (host.length == 0) {
             res.status(400).send("Host does not exist");
         } else {
-            if (roomList.length == 0) {
-                var newRoomList = new roomModel({
-                    hostId: req.body.hostId,
-                    address: req.body.address,
-                    hostelName: req.body.roomName,
-                    roomList: [{roomId: req.body.roomId, roomName: req.body.roomName}]
-                });
-                newRoomList.save();
-                res.status(200).send(newRoomList);
+            roomList = roomList[0].roomList;
+            const existRoom = roomList.filter((x) => x.roomId == req.body.roomId);
+            if (existRoom.length != 0) {
+                res.status(400).send("Room already exists in hostel");
             } else {
-                roomList = roomList[0].roomList;
-                const existRoom = roomList.filter((x) => x.roomId == req.body.roomId);
-                if (existRoom.length != 0) {
-                    res.status(400).send("Room already exists in hostel");
-                } else {
-                    const newRoom = {
-                        roomId: req.body.roomId,
-                        roomName: req.body.roomName
-                    };
-                    roomList.push(newRoom);
-                    roomList = await roomModel.findOneAndUpdate({ hostId: req.body.hostId }, {roomList: roomList} , {new: true});
-                    res.status(200).send(roomList);
-                }
+                const newRoom = {
+                    roomId: req.body.roomId,
+                    roomName: req.body.roomName
+                };
+                roomList.push(newRoom);
+                roomList = await roomModel.findOneAndUpdate({ hostId: req.body.hostId }, {roomList: roomList} , {new: true});
+                res.status(200).send(roomList);
             }
         }
     } catch (err) {

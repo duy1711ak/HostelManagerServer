@@ -1,17 +1,16 @@
 ##############################################################
 # Đăng ký
 # Gửi POST request đến server với phần body như bên dưới
-# POST https://hostel0tdtd.herokuapp.com
 
-POST http://localhost:5000/register
+POST https://hostel0tdtd.herokuapp.com/register
 Content-Type: application/json
 
 {    
     "name": "minh duy",
     "phoneNum": "1234",
-    "username": "ddad12345",
+    "username": "duyduy34567",
     "password": "123",
-    "isClient": "false",
+    "isClient": false,
     "address": "Ho Chi Minh City",
     "hostelName": "Hostel A"
 }
@@ -54,12 +53,12 @@ Username already exists
 ##############################################################
 # Đăng nhập
 # Gửi POST request đến server với phần body như bên dưới
-POST http://localhost:5000/login
+POST https://hostel0tdtd.herokuapp.com/login
 Content-Type: application/json
 
 {
-    "username": "giathinh2112",
-    "password": "123"
+    "username": "Gg",
+    "password": "a"
 }
 
 ###
