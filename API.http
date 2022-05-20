@@ -173,7 +173,7 @@ Client is not added to any room
 # Lấy danh sách người thuê ứng với hostId
 # Gửi GET request đến server với phần body như bên dưới
 
-GET http://hostel0tdtd.herokuapp.com/host/1/users
+GET http://hostel0tdtd.herokuapp.com/host/1/clients
 Content-Type: application/json
 
 ###
@@ -211,7 +211,7 @@ Invalid host id
 ##############################################################
 # Thêm người thuê ứng với hostId (thêm người thuê vào phòng, nhà trọ)
 # Gửi POST request đến server với phần body như bên dưới
-POST http://hostel0tdtd.herokuapp.com/host/1/users
+POST http://hostel0tdtd.herokuapp.com/host/1/clients
 Content-Type: application/json
 
 {
@@ -253,7 +253,7 @@ Client already exists in a room
 ##############################################################
 # Xóa người dùng (chỉ client)
 # Gửi DELETE request đến server với phần body như bên dưới
-DELETE http://hostel0tdtd.herokuapp.com/host/1/users/9
+DELETE http://hostel0tdtd.herokuapp.com/host/1/clients/9
 Content-Type: application/json
 
 ###
