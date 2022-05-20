@@ -215,13 +215,13 @@ Invalid host id
 ##############################################################
 # Thêm người thuê ứng với hostId (thêm người thuê vào phòng, nhà trọ)
 # Gửi POST request đến server với phần body như bên dưới
-POST http://hostel0tdtd.herokuapp.com/host/users
+POST http://hostel0tdtd.herokuapp.com/host/1/users
 Content-Type: application/json
 
 {
-    "hostId": "1",
-    "clientId": "2",
-    "roomId": "1"
+    "clientId": "6",
+    "roomId": "2",
+    "phoneNum": "656"
 }
 
 ###
@@ -357,7 +357,7 @@ POST http://hostel0tdtd.herokuapp.com/host/1/rooms
 Content-Type: application/json
 
 {
-    "roomName": "001"
+    "roomName": "009"
 }
 
 ###
@@ -405,13 +405,11 @@ Room already exists in hostel
 ##############################################################
 # Sửa thông tin phòng thuê ứng với hostId, roomId
 # Gửi PUT request đến server với phần body như bên dưới
-PUT http://hostel0tdtd.herokuapp.com/host/rooms
+PUT http://hostel0tdtd.herokuapp.com/host/1/rooms/10
 Content-Type: application/json
 
 {
-    "hostId": "1",
-    "roomId": "2",
-    "roomName": "Phòng 2"
+    "roomName": "A00"
 }
 
 ###
@@ -459,13 +457,8 @@ Room does not exist
 ##############################################################
 # Xóa phòng theo hostId, roomId
 # Gửi DELETE request đến server với phần body như bên dưới
-DELETE http://hostel0tdtd.herokuapp.com/host/rooms
+DELETE http://hostel0tdtd.herokuapp.com/host/1/rooms/10
 Content-Type: application/json
-
-{
-    "hostId": "1",
-    "roomId": "2"
-}
 
 ###
 # Kết quả trả về có dạng như sau
