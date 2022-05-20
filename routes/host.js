@@ -87,7 +87,7 @@ router.get('/rooms', async (req, res) => {
             if (roomList.length == 0) {
                 res.status(200).send([]);
             } else {
-                roomList = roomList[0].roomList;
+                roomList = {list: roomList[0].roomList};
                 res.status(200).send(roomList);            
             }
         }

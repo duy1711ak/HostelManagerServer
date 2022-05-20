@@ -361,7 +361,6 @@ Content-Type: application/json
 
 {
     "hostId": "1",
-    "roomId": 1,
     "roomName": "001"
 }
 
