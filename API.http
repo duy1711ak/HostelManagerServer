@@ -173,12 +173,8 @@ Client is not added to any room
 # Lấy danh sách người thuê ứng với hostId
 # Gửi GET request đến server với phần body như bên dưới
 
-GET http://hostel0tdtd.herokuapp.com/host/users
+GET http://hostel0tdtd.herokuapp.com/host/1/users
 Content-Type: application/json
-
-{
-    "hostId": "2"
-}
 
 ###
 # Kết quả trả về có dạng như sau
@@ -255,50 +251,10 @@ Connection: close
 Client already exists in a room
 
 ##############################################################
-# Sửa thông tin người dùng (cả chủ trọ) với UId
-# Gửi PUT request đến server với phần body như bên dưới
-PUT http://hostel0tdtd.herokuapp.com/host/users
-Content-Type: application/json
-
-{
-    "UId": "1",
-    "name": "newHostName",
-    "phoneNum": "0123456789",
-    "password": "12345"
-}
-
-###
-# Kết quả trả về có dạng như sau
-# - Thành công: 
-
-HTTP/1.1 200 OK
-X-Powered-By: Express
-Content-Type: application/json; charset=utf-8
-Content-Length: 157
-ETag: W/"9d-TZywzJoOL7IJ7jycL5cZW3A8g5c"
-Date: Wed, 18 May 2022 09:15:57 GMT
-Connection: close
-
-{
-  "_id": "6284a949124801f38ab610bf",
-  "UId": 1,
-  "name": "newHostName",
-  "phoneNum": "0123456789",
-  "username": "giathinh2112",
-  "password": "12345",
-  "isClient": false,
-  "__v": 0
-}
-
-##############################################################
 # Xóa người dùng (chỉ client)
 # Gửi DELETE request đến server với phần body như bên dưới
-DELETE http://hostel0tdtd.herokuapp.com/host/users
+DELETE http://hostel0tdtd.herokuapp.com/host/1/users/3
 Content-Type: application/json
-
-{
-    "clientId": "3"
-}
 
 ###
 # Kết quả trả về có dạng như sau

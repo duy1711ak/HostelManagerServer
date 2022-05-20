@@ -60,11 +60,12 @@ router.post('/:id/users', async (req, res) => {
 });
 
 
-router.delete('/:id/users', async (req, res) => {
+router.delete('/:id/users/:uid', async (req, res) => {
     try {
         const hId = req.params.id;
-        await usersModel.findOneAndDelete({ UId: req.body.clientId });
-        await clientModel.findOneAndDelete({ clientId: req.body.clientId });
+        const uid = req.params.uid;
+        await usersModel.findOneAndDelete({ UId: req.params.uid });
+        await clientModel.findOneAndDelete({ clientId: req.params.uid });
         res.status(200).send("User is successfully deleted");
     } catch (err) {
         res.status(400).send(err);
