@@ -14,7 +14,12 @@ router.get(':id/info', async (req, res) => {
         } else {
             clientInfo = clientInfo[0];
             const hostId = clientInfo.hostId;
-            var roomInfo = await roomListModel.find({ "hostId": hostId });
+            try{
+                var roomInfo = await roomListModel.find({ "hostId": hostId });
+            }
+            catch(err){
+                res.status(401).send();
+            }
             roomInfo = roomInfo[0];
             const hostInfo = await userModal.find({UId: hostId})
             clientInfo = {
