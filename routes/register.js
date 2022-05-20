@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const usersModel = require('../models/users.js')
+const roomListModel = require('../models/roomList.js')
 
 router.post('/', async (req, res) => {
     const existUser = await usersModel.find();
@@ -25,6 +26,15 @@ router.post('/', async (req, res) => {
             res.status(400).send("Username already exists")
         } else {
             const newUser = await user.save();
+            if (!req.body.isClient) {
+                const hostel = new roomListModel({
+                    hostId: currentMaxId + 1,
+                    address: req.body.address,
+                    hostelName: req.body.hostelName,
+                    roomList : []
+                });
+                const hostelInfo = await hostel.save();
+            }
             res.send(newUser);
         }
     } catch (err) {

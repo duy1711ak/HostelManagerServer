@@ -16,12 +16,10 @@ const roomListSchema = new mongoose.Schema({
 	roomList : [
 		{
             roomId: {
-                type: Number,
-                required: true,
+                type: Number
             },
             roomName: {
-                type: String,
-                required: true,
+                type: String
             }
         }
 	]
