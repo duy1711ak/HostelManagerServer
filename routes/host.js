@@ -32,7 +32,7 @@ router.post('/:id/users', async (req, res) => {
         else if (host.length == 0) res.status(400).send("Host does not exist");
         else if (roomList.length == 0) res.status(400).send("Room does not exist");
         else {
-            roomList = (roomList[0].roomList).filter((x) => x.roomId == req.body.roomId);
+            roomList = (roomList[0].roomList).filter((x) => x.roomName == req.body.roomName);
             if (roomList.length == 0) {
                 res.status(400).send("Room does not exist");
             } else {
@@ -47,7 +47,7 @@ router.post('/:id/users', async (req, res) => {
                     const client = new clientModel({
                         clientId: req.body.clientId,
                         hostId: hostId,
-                        roomId: req.body.roomId
+                        roomId: req.body.roomName
                     });
                     client.save();
                     res.status(200).send();

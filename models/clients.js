@@ -9,8 +9,8 @@ const clientSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-	roomId: {
-        type: Number,
+	roomName: {
+        type: String,
         required: true
     }
 })
