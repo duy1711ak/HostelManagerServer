@@ -16,7 +16,7 @@ router.get(':id/info', async (req, res) => {
             const hostId = clientInfo.hostId;
             var roomInfo = await roomListModel.find({ "hostId": hostId });
             roomInfo = roomInfo[0];
-            const hostInfo = await userModal.find({hostId: hostId})
+            const hostInfo = await userModal.find({UId: hostId})
             clientInfo = {
                 hostelName: roomInfo.hostelName,
                 address: roomInfo.address,

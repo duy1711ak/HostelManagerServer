@@ -57,8 +57,8 @@ POST https://hostel0tdtd.herokuapp.com/login
 Content-Type: application/json
 
 {
-    "username": "Gg",
-    "password": "a"
+    "username": "T",
+    "password": "T"
 }
 
 ###
@@ -100,12 +100,8 @@ Username or password is incorrect
 ##############################################################
 # Lấy thông tin  (tên nhà trọ, địa chỉ nhà trọ, id phòng) ứng với clientId
 # Gửi GET request đến server với phần body như bên dưới
-GET http://hostel0tdtd.herokuapp.com/client/info
+GET http://hostel0tdtd.herokuapp.com/client/6/info
 Content-Type: application/json
-
-{
-    "clientId": "2"
-}
 
 ###
 # Kết quả trả về có dạng như sau
@@ -215,9 +211,9 @@ POST http://hostel0tdtd.herokuapp.com/host/1/clients
 Content-Type: application/json
 
 {
-    "clientId": "8",
+    "clientId": "6",
     "roomName": "004",
-    "phoneNum": "258"
+    "phoneNum": "656"
 }
 
 ###
@@ -253,7 +249,7 @@ Client already exists in a room
 ##############################################################
 # Xóa người dùng (chỉ client)
 # Gửi DELETE request đến server với phần body như bên dưới
-DELETE http://hostel0tdtd.herokuapp.com/host/1/clients/9
+DELETE http://hostel0tdtd.herokuapp.com/host/1/clients/7
 Content-Type: application/json
 
 ###
