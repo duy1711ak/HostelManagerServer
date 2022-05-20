@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
         currentMaxId = currentMaxId[0].UId;
     }
     const isClient = req.body.isClient;
-    if (isClient == "false") {
+    if (isClient == false) {
         const hostel = new roomModel({
         hostId: currentMaxId + 1,
         address: req.body.address,
