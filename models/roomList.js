@@ -1,3 +1,4 @@
+const { type } = require('express/lib/response')
 const mongoose = require('mongoose')
 
 const roomListSchema = new mongoose.Schema({
@@ -13,16 +14,19 @@ const roomListSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-	roomList : [
-		{
-            roomId: {
-                type: Number
-            },
-            roomName: {
-                type: String
+	roomList : {
+        type: [
+            {
+                roomId: {
+                    type: Number
+                },
+                roomName: {
+                    type: String
+                }
             }
-        }
-	]
+        ],
+        default: []
+    }
 })
 
 module.exports = mongoose.model("RoomList", roomListSchema, "RoomList")

@@ -1,13 +1,15 @@
 ##############################################################
 # Đăng ký
 # Gửi POST request đến server với phần body như bên dưới
-POST https://hostel0tdtd.herokuapp.com/register
+# POST https://hostel0tdtd.herokuapp.com
+
+POST http://localhost:5000/register
 Content-Type: application/json
 
 {    
     "name": "minh duy",
     "phoneNum": "1234",
-    "username": "duyduy112",
+    "username": "ddad12345",
     "password": "123",
     "isClient": "false",
     "address": "Ho Chi Minh City",
