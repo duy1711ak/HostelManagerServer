@@ -10,7 +10,7 @@ router.get(':id/info', async (req, res) => {
         const clientId = parseInt(req.params.id);
         var clientInfo = await clientsModel.find({ "clientId": clientId });
         if (clientInfo.length == 0) {
-            res.status(200).send({roomId: ''});
+            res.status(400).send('Client not in any room');
         } else {
             clientInfo = clientInfo[0];
             const hostId = clientInfo.hostId;
