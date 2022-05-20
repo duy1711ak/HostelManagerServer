@@ -3,21 +3,26 @@ const clientsModel = require("../models/clients");
 const roomListModel = require("../models/roomList");
 const notificationModel = require("../models/notification");
 const router = express.Router();
+const userModal = require('../models/users')
 
-router.get('/info', async (req, res) => {
+router.get(':id/info', async (req, res) => {
     try {
-        var clientInfo = await clientsModel.find({ "clientId": req.body.clientId });
+        const clientId = parseInt(req.params.id);
+        var clientInfo = await clientsModel.find({ "clientId": clientId });
         if (clientInfo.length == 0) {
-            res.status(400).send("Client is not added to any room");
+            res.status(200).send({roomId: ''});
         } else {
             clientInfo = clientInfo[0];
             const hostId = clientInfo.hostId;
             var roomInfo = await roomListModel.find({ "hostId": hostId });
             roomInfo = roomInfo[0];
+            const hostInfo = await userModal.find({hostId: hostId})
             clientInfo = {
-                "hostelName": roomInfo.hostelName,
-                "address": roomInfo.address,
-                "roomId": clientInfo.roomId
+                hostelName: roomInfo.hostelName,
+                address: roomInfo.address,
+                roomName: clientInfo.roomName,
+                hostName: hostInfo.name,
+                hostPhoneNum: hostInfo.phoneNum
             };
             res.status(200).send(clientInfo);
         }
