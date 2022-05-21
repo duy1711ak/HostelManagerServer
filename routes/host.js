@@ -65,8 +65,6 @@ router.post('/:id/clients', async (req, res) => {
 
 router.delete('/:id/clients/:uid', async (req, res) => {
     try {
-        const hId = req.params.id;
-        const uid = parseInt(req.params.uid);
         await clientModel.findOneAndDelete({ clientId: req.params.uid });
         res.status(200).send("User is successfully deleted");
     } catch (err) {

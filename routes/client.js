@@ -32,6 +32,16 @@ router.get('/:id/info', async (req, res) => {
     }
 });
 
+router.delete('/:id/info', async (req, res) =>{
+    try {
+        const uid = parseInt(req.params.id);
+        await clientsModel.findOneAndDelete({ clientId: uid });
+        res.status(200).send("User is successfully deleted");
+    } catch (err) {
+        res.status(400).send(err);
+    }
+})
+
 router.get('/notification', async (req, res) => {
     try {
         var clientInfo = await clientsModel.find({ "clientId": req.body.clientId });
