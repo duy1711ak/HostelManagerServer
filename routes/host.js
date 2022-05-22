@@ -98,13 +98,13 @@ router.post('/:id/rooms', async (req, res) => {
         var roomList = await roomModel.find({ hostId: hId });
         const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
         if (host.length == 0) {
-            res.status(400).send("Host does not exist");
+            res.status(400).send({message: "Host does not exist"});
         } else {
             roomList = roomList[0].roomList;
             const size = roomList.length;
             const existRoom = roomList.filter((x) => x.roomName == req.body.roomName);
             if (existRoom.length != 0) {
-                res.status(400).send("Room already exists in hostel");
+                res.status(400).send({message: "Room already exists in hostel"});
             } else {
                 const newRoom = {
                     roomId: roomList[size-1].roomId + 1,
@@ -116,7 +116,7 @@ router.post('/:id/rooms', async (req, res) => {
             }
         }
     } catch (err) {
-        res.status(400).send(err);
+        res.status(400).send({message: err});
     }
 });
 
