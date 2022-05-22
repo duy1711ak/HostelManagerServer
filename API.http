@@ -339,7 +339,7 @@ Host does not exist
 ##############################################################
 # Thêm phòng thuê ứng theo hostId
 # Gửi POST request đến server với phần body như bên dưới
-POST http://hostel0tdtd.herokuapp.com/host/1/rooms
+POST http://hostel0tdtd.herokuapp.com/host/23/rooms
 Content-Type: application/json
 
 {

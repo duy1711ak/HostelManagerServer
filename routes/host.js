@@ -106,8 +106,15 @@ router.post('/:id/rooms', async (req, res) => {
             if (existRoom.length != 0) {
                 res.status(400).send({message: "Room already exists in hostel"});
             } else {
+                var roomId;
+                if (roomList.length == 0){
+                    roomId = 0
+                }
+                else{
+                    roomId = roomList[size-1].roomId + 1
+                }
                 const newRoom = {
-                    roomId: roomList[size-1].roomId + 1,
+                    roomId: roomId,
                     roomName: req.body.roomName
                 };
                 roomList.push(newRoom);
