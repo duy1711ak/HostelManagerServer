@@ -165,27 +165,26 @@ router.delete('/:id/rooms/:rid', async (req, res) => {
         const hId = req.params.id;
         const roomId = parseInt(req.params.rid);
         var roomList = await roomModel.find({ hostId: hId});
-        const clientInRoom = await clientModel.find({ roomId: roomId});
-        if (clientInRoom.length != 0) {
+        const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
+        if (host.length == 0) {
             res.status(400).send({message: "Host does not exist"});
-        }
-        else{
-            const host = await usersModel.find({$and:[{"UId": hId},{"isClient": false}]});
-            if (host.length == 0) {
-                res.status(400).send({message: "Host does not exist"});
+        } else {
+            if (roomList.length == 0) {
+                res.status(400).send({message: "Room does not exist"});
             } else {
-                if (roomList.length == 0) {
+                roomList = roomList[0].roomList;
+                var existRoom = roomList.filter((x) => x.roomId == roomId);
+                if (existRoom.length == 0) {
                     res.status(400).send({message: "Room does not exist"});
                 } else {
-                    roomList = roomList[0].roomList;
-                    var existRoom = roomList.filter((x) => x.roomId == roomId);
-                    if (existRoom.length == 0) {
-                        res.status(400).send({message: "Room does not exist"});
-                    } else {
-                        var newRoomList = roomList.filter((x) => x.roomId != roomId);
-                        newRoomList = await roomModel.findOneAndUpdate({ hostId: hId }, { roomList: newRoomList } , { new: true })
-                        res.status(200).send("Room is successfully deleted");
+                    const deletedRoom = roomList.filter((x) => x.roomId == roomId);
+                    const clientInRoom = await clientModel.find({$and: [{hostId: hId}, {roomName: deletedRoom[0].roomName}]});
+                    if (clientInRoom.length != 0) {
+                        res.status(400).send({message: "This room still have client"});
                     }
+                    var newRoomList = roomList.filter((x) => x.roomId != roomId);
+                    newRoomList = await roomModel.findOneAndUpdate({ hostId: hId }, { roomList: newRoomList } , { new: true })
+                    res.status(200).send("Room is successfully deleted");
                 }
             }
         }
