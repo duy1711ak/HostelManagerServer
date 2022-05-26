@@ -42,22 +42,19 @@ router.delete('/:id/info', async (req, res) =>{
     }
 })
 
-router.get('/notification', async (req, res) => {
+router.get(':cid/notification', async (req, res) => {
     try {
-        var clientInfo = await clientsModel.find({ "clientId": req.body.clientId });
+        const clientId = req.params.cid
+        var clientInfo = await clientsModel.find({ "clientId": clientId });
         if (clientInfo.length == 0) {
-            res.status(400).send("Client is not added to any room");
+            res.status(400).send({message: "Client is not added to any room"});
         } else {
             var clientInfo = clientInfo[0];
             const hostId = clientInfo.hostId;
             var notification = await notificationModel.find({ "hostId": hostId });
-            if (notification.length == 0) {
-                res.status(200).send([]);
-            } else {
-                var notification = notification[0];
-                const notificationList = notification.notification;
-                res.status(200).send(notificationList);
-            }
+            var notification = notification[0];
+            const notificationList = notification.notification;
+            res.status(200).send(notificationList);
         }
     } catch (err) {
         res.status(400).send(err);

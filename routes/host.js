@@ -34,8 +34,8 @@ router.post('/:id/clients', async (req, res) => {
         else if (host.length == 0) res.status(400).send({message: "Host does not exist"});
         else if (roomList.length == 0) res.status(400).send("Room does not exist");
         else {
-            roomList = (roomList[0].roomList).filter((x) => x.roomName == req.body.roomName);
-            if (roomList.length == 0) {
+            const room = (roomList[0].roomList).filter((x) => x.roomName == req.body.roomName);
+            if (room.length == 0) {
                 res.status(400).send({message: "Room does not exist"});
             } else {
                 if (phoneNum != req.body.phoneNum) {
@@ -193,54 +193,41 @@ router.delete('/:id/rooms/:rid', async (req, res) => {
     }
 });
 
-router.get('/notification', async (req, res) => {
+router.get(':id/notification', async (req, res) => {
     try {
-        const host = await usersModel.find({$and:[{"UId": req.body.hostId},{"isClient": false}]});
-        if (host.length == 0) {
+        const hostId = req.params.id
+        const postList = await notificationModel.find({"hostId": hostId});
+        if (postList.length == 0) {
             res.status(400).send("Host does not exist");
         } else {
-            var postList = await notificationModel.find({ hostId: req.body.hostId });
-            if (postList.length == 0) {
-                res.status(200).send([]);
-            } else {
-                postList = postList[0].notification;
-                res.status(200).send(postList);
-            }
+            postList = postList[0].notification;
+            res.status(200).send(postList);
         }
     } catch (err) {
         res.status(400).send(err);
     }
 });
 
-router.post('/notification', async (req, res) => {
+router.post(':id/notification', async (req, res) => {
     try {
-        const host = await usersModel.find({$and:[{"UId": req.body.hostId},{"isClient": false}]});
-        if (host.length == 0) {
-            res.status(400).send("Host does not exist");
+        const hostId = req.params.id
+        var postList = await notificationModel.find({ hostId: hostId });
+        if (postList.length == 0) {
+            res.status(400).send({message: "Host does not exist"});
         } else {
-            var postList = await notificationModel.find({ hostId: req.body.hostId });
-            if (postList.length == 0) {
-                var newPostList = new notificationModel({
-                    hostId: req.body.hostId,
-                    notification: [{ 
-                        createAt: req.body.createAt,
-                        subject: req.body.subject,
-                        content: req.body.content 
-                    }]
-                });
-                await newPostList.save();
-                res.status(200).send(newPostList);
-            } else {
-                postList = postList[0].notification;
-                const newPost = {
-                    createAt: req.body.createAt,
-                    subject: req.body.subject,
-                    content: req.body.content 
-                };
-                postList.push(newPost);
-                postList = await notificationModel.findOneAndUpdate({ hostId: req.body.hostId }, {notification: postList} , {new: true});
-                res.status(200).send(postList);
-            }
+            postList = postList[0].notification;
+            nextId = postList[0].numNotification;
+            const newPost = {
+                id: nextId,
+                createAt: req.body.createAt,
+                subject: req.body.subject,
+                content: req.body.content 
+            };
+            postList.push(newPost);
+            postList = await notificationModel.findOneAndUpdate({ hostId: req.body.hostId }, 
+                                                                {notification: postList, numNotification: nextId+1}, 
+                                                                {new: true});
+            res.status(200).send({message: 'successful'});
         }
     } catch (err) {
         res.status(400).send(err);

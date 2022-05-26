@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const usersModel = require('../models/users.js')
 const roomModel = require('../models/roomList.js')
+const notificationModel = require('../models/notification')
 
 router.post('/', async (req, res) => {
     const existUser = await usersModel.find();
@@ -20,6 +21,11 @@ router.post('/', async (req, res) => {
         hostelName: req.body.hostelName
         });
         hostel.save();
+        const notification = new notificationModel({
+            hostId: currentMaxId + 1,
+            numNotification: 0
+        });
+        notification.save();
     };
     const user = new usersModel({
         UId: currentMaxId + 1,
