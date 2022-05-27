@@ -168,12 +168,9 @@ Client is not added to any room
 ##############################################################
 # Lấy danh sách thông báo ứng với clientId
 # Gửi GET request đến server với phần body như bên dưới
-GET http://hostel0tdtd.herokuapp.com/client/notification
+GET http://hostel0tdtd.herokuapp.com/client/10/notification/page/1
 Content-Type: application/json
 
-{
-    "clientId" : "2"
-}
 
 ###
 # Kết quả trả về có dạng như sau
@@ -198,6 +195,10 @@ Date: Wed, 18 May 2022 08:41:52 GMT
 Connection: close
 
 Client is not added to any room
+
+####
+GET http://hostel0tdtd.herokuapp.com/client/10/notification/11
+Content-Type: application/json
 
 ##############################################################
 # Lấy danh sách người thuê ứng với hostId
@@ -514,8 +515,8 @@ POST http://hostel0tdtd.herokuapp.com/host/24/notification
 Content-Type: application/json
 
 {
-    "subject": "Thu phí điện nước tháng 4",
-    "content": "Các phòng thanh toán phí điện nước trước 30/06"
+    "subject": "Thu phí điện nước tháng 12",
+    "content": "Các phòng thanh toán phí điện nước trước 12"
 }
 
 ###
@@ -554,8 +555,10 @@ Connection: close
 
 Host does not exist
 
+###
 
-
+GET http://hostel0tdtd.herokuapp.com/host/24/notification/11
+Content-Type: application/json
 
 
 
