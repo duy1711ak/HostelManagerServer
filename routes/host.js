@@ -218,7 +218,6 @@ router.post('/:hid/notification', async (req, res) => {
         if (postList.length == 0) {
             res.status(400).send({message: "Host does not exist"});
         } else {
-            list = postList[0].notification;
             const nextId = postList[0].numNotification;
             const time = new Date();
             const newPost = {
@@ -227,7 +226,6 @@ router.post('/:hid/notification', async (req, res) => {
                 subject: req.body.subject,
                 content: req.body.content 
             };
-            list.push(newPost);
             postList = await notificationModel.findOneAndUpdate({ hostId: hostId }, 
                                     {numNotification: nextId+1, $push: {notification: newPost}}, 
                                     {new: true});
