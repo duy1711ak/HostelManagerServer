@@ -220,13 +220,13 @@ router.post('/:hid/notification', async (req, res) => {
         } else {
             postList = postList[0].notification;
             const nextId = postList[0].numNotification;
-            const time = new Date();
-            const newPost = {
-                id: nextId,
-                createAt: time,
-                subject: req.body.subject,
-                content: req.body.content 
-            };
+            // const time = new Date();
+            // const newPost = {
+            //     id: nextId,
+            //     createAt: time,
+            //     subject: req.body.subject,
+            //     content: req.body.content 
+            // };
             // postList.push(newPost);
             // postList = await notificationModel.findOneAndUpdate({ hostId: hostId }, 
             //                         {numNotification: nextId+1}, 
