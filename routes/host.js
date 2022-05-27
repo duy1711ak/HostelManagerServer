@@ -246,4 +246,20 @@ router.post('/:hid/notification', async (req, res) => {
     }
 });
 
+router.get('/:hid/notification/:notiId', async (req, res) => {
+    try {
+        const hostId = req.params.hid;
+        const notiId = req.params.notiId;
+        const postList = await notificationModel.find({"hostId": hostId});
+        if (postList.length == 0) {
+            res.status(400).send("Host does not exist");
+        } else {
+            const list = postList[0].notification;
+            res.status(200).send({'result': list[notiId]});
+        }
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
 module.exports = router
