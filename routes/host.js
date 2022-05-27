@@ -193,7 +193,7 @@ router.delete('/:id/rooms/:rid', async (req, res) => {
     }
 });
 
-router.get(':hid/notification/page/:pageNum', async (req, res) => {
+router.get('/:hid/notification/page/:pageNum', async (req, res) => {
     try {
         const hostId = req.params.hid;
         const pageNum = req.params.pageNum;
@@ -211,7 +211,7 @@ router.get(':hid/notification/page/:pageNum', async (req, res) => {
     }
 });
 
-router.post(':hid/notification', async (req, res) => {
+router.post('/:hid/notification', async (req, res) => {
     try {
         const hostId = req.params.id
         var postList = await notificationModel.find({ hostId: hostId });

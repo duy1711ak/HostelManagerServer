@@ -42,7 +42,7 @@ router.delete('/:id/info', async (req, res) =>{
     }
 })
 
-router.get(':cid/notification/page/:pageNum', async (req, res) => {
+router.get('/:cid/notification/page/:pageNum', async (req, res) => {
     try {
         const clientId = req.params.cid;
         const pageNum = req.params.pageNum;
