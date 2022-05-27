@@ -55,8 +55,18 @@ router.get('/:cid/notification/page/:pageNum', async (req, res) => {
             var clientInfo = clientInfo[0];
             const hostId = clientInfo.hostId;
             var notification = await notificationModel.find({ "hostId": hostId });
-            const notificationList = notification[0].notification.slice(firstPos, lastPos);
-            res.status(200).send(notificationList);
+            const list = notification[0].notification;
+            const last = lastPos <= list.length ? lastPos : list.length;
+            const result = await list.slice(firstPos, last).map(
+                (obj)=>{
+                    return {
+                        "id" : obj.id,
+                        "createAt" : obj.createAt,
+                        "subject": obj.subject
+                    }
+                }
+            );
+            res.status(200).send({'result': result});
         }
     } catch (err) {
         res.status(400).send(err);

@@ -205,7 +205,16 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
         } else {
             const list = postList[0].notification;
             const last = lastPos <= list.length ? lastPos : list.length;
-            const result = await list.slice(firstPos, last)
+            const result = await list.slice(firstPos, last).map(
+                (obj)=>{
+                    return {
+                        "id" : obj.id,
+                        "createAt" : obj.createAt,
+                        "subject": obj.subject
+                    }
+                }
+            );
+            
             res.status(200).send({'result': result});
         }
     } catch (err) {
