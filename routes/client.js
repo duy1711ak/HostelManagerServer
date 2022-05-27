@@ -66,7 +66,9 @@ router.get('/:cid/notification/page/:pageNum', async (req, res) => {
                     }
                 }
             );
-            res.status(200).send({'result': result});
+            res.status(200).send({
+                'total': list.length,
+                'result': result});
         }
     } catch (err) {
         res.status(400).send(err);
