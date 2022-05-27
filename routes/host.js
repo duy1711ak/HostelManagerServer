@@ -229,7 +229,7 @@ router.post('/:hid/notification', async (req, res) => {
             };
             postList.push(newPost);
             try {
-                postList = await notificationModel.findOneAndUpdate({ hostId: req.body.hostId }, 
+                postList = await notificationModel.findOneAndUpdate({ hostId: hostId }, 
                                         {notification: postList, numNotification: nextId+1}, 
                                         {new: true});
             }
