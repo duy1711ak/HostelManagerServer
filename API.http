@@ -8,8 +8,8 @@ Content-Type: application/json
 {    
     "name": "minh duy",
     "phoneNum": "1234",
-    "username": "duyduy34567",
-    "password": "123",
+    "username": "d",
+    "password": "d",
     "isClient": false,
     "address": "Ho Chi Minh City",
     "hostelName": "Hostel A"
@@ -472,7 +472,7 @@ Room does not exist
 ##############################################################
 # Lấy danh sách thông báo
 # Gửi GET request đến server với phần body như bên dưới
-GET http://hostel0tdtd.herokuapp.com/host/notification
+GET http://hostel0tdtd.herokuapp.com/host/24/notification
 Content-Type: application/json
 
 {
@@ -513,13 +513,11 @@ Host does not exist
 ##############################################################
 # Thêm thông báo
 # Gửi GET request đến server với phần body như bên dưới
-POST http://hostel0tdtd.herokuapp.com/host/notification
+POST http://hostel0tdtd.herokuapp.com/host/24/notification
 Content-Type: application/json
 
 {
-    "hostId": "2",
-    "createAt": "2022-05-18 06:55:03",
-    "subject": "Thu phí điện nước tháng 6",
+    "subject": "Thu phí điện nước tháng 1",
     "content": "Các phòng thanh toán phí điện nước trước 30/06"
 }
 
