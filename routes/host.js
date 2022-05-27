@@ -193,22 +193,25 @@ router.delete('/:id/rooms/:rid', async (req, res) => {
     }
 });
 
-router.get(':id/notification', async (req, res) => {
+router.get(':hid/notification/page/:pageNum', async (req, res) => {
     try {
-        const hostId = req.params.id
+        const hostId = req.params.hid;
+        const pageNum = req.params.pageNum;
+        const firstPos = (pageNum-1)*10;
+        const lastPos = pageNum*10;
         const postList = await notificationModel.find({"hostId": hostId});
         if (postList.length == 0) {
             res.status(400).send("Host does not exist");
         } else {
-            postList = postList[0].notification;
-            res.status(200).send(postList);
+            const result = postList[0].notification.slice(firstPos, lastPos);
+            res.status(200).send(result);
         }
     } catch (err) {
         res.status(400).send(err);
     }
 });
 
-router.post(':id/notification', async (req, res) => {
+router.post(':hid/notification', async (req, res) => {
     try {
         const hostId = req.params.id
         var postList = await notificationModel.find({ hostId: hostId });
@@ -216,10 +219,11 @@ router.post(':id/notification', async (req, res) => {
             res.status(400).send({message: "Host does not exist"});
         } else {
             postList = postList[0].notification;
-            nextId = postList[0].numNotification;
+            const nextId = postList[0].numNotification;
+            const time = new Date();
             const newPost = {
                 id: nextId,
-                createAt: req.body.createAt,
+                createAt: time,
                 subject: req.body.subject,
                 content: req.body.content 
             };

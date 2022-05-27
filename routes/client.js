@@ -42,9 +42,12 @@ router.delete('/:id/info', async (req, res) =>{
     }
 })
 
-router.get(':cid/notification', async (req, res) => {
+router.get(':cid/notification/page/:pageNum', async (req, res) => {
     try {
-        const clientId = req.params.cid
+        const clientId = req.params.cid;
+        const pageNum = req.params.pageNum;
+        const firstPos = (pageNum-1)*10;
+        const lastPos = pageNum*10;
         var clientInfo = await clientsModel.find({ "clientId": clientId });
         if (clientInfo.length == 0) {
             res.status(400).send({message: "Client is not added to any room"});
@@ -52,8 +55,7 @@ router.get(':cid/notification', async (req, res) => {
             var clientInfo = clientInfo[0];
             const hostId = clientInfo.hostId;
             var notification = await notificationModel.find({ "hostId": hostId });
-            var notification = notification[0];
-            const notificationList = notification.notification;
+            const notificationList = notification[0].notification.slice(firstPos, lastPos);
             res.status(200).send(notificationList);
         }
     } catch (err) {
