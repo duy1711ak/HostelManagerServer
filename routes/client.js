@@ -73,4 +73,23 @@ router.get('/:cid/notification/page/:pageNum', async (req, res) => {
     }
 });
 
+router.get('/:cid/notification/:notiId', async (req, res) => {
+    try {
+        const clientId = req.params.cid;
+        const notiId = req.params.notiId;
+        var clientInfo = await clientsModel.find({ "clientId": clientId });
+        if (clientInfo.length == 0) {
+            res.status(400).send({message: "Client is not added to any room"});
+        } else {
+            var clientInfo = clientInfo[0];
+            const hostId = clientInfo.hostId;
+            var notification = await notificationModel.find({ "hostId": hostId });
+            const list = notification[0].notification;
+            res.status(200).send({'result': list[notiId].content});
+        }
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
 module.exports = router

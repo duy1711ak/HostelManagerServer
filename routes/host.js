@@ -255,7 +255,7 @@ router.get('/:hid/notification/:notiId', async (req, res) => {
             res.status(400).send("Host does not exist");
         } else {
             const list = postList[0].notification;
-            res.status(200).send({'result': list[notiId]});
+            res.status(200).send({'result': list[notiId].content});
         }
     } catch (err) {
         res.status(400).send(err);
