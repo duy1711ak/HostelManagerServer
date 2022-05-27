@@ -57,8 +57,8 @@ POST https://hostel0tdtd.herokuapp.com/login
 Content-Type: application/json
 
 {
-    "username": "T",
-    "password": "T"
+    "username": "d",
+    "password": "d"
 }
 
 ###
