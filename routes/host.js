@@ -32,7 +32,6 @@ router.post('/:id/clients', async (req, res) => {
         var roomList = await roomModel.find({ hostId: hostId });
         if (client.length == 0) res.status(400).send({message: "Client does not exist"});
         else if (host.length == 0) res.status(400).send({message: "Host does not exist"});
-        else if (roomList.length == 0) res.status(400).send("Room does not exist");
         else {
             const room = (roomList[0].roomList).filter((x) => x.roomName == req.body.roomName);
             if (room.length == 0) {
