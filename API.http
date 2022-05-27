@@ -241,13 +241,13 @@ Invalid host id
 ##############################################################
 # Thêm người thuê ứng với hostId (thêm người thuê vào phòng, nhà trọ)
 # Gửi POST request đến server với phần body như bên dưới
-POST http://hostel0tdtd.herokuapp.com/host/1/clients
+POST http://hostel0tdtd.herokuapp.com/host/24/clients
 Content-Type: application/json
 
 {
-    "clientId": "6",
-    "roomName": "004",
-    "phoneNum": "656"
+    "clientId": "10",
+    "roomName": "001",
+    "phoneNum": "65"
 }
 
 ###
@@ -514,7 +514,7 @@ POST http://hostel0tdtd.herokuapp.com/host/24/notification
 Content-Type: application/json
 
 {
-    "subject": "Thu phí điện nước tháng 2",
+    "subject": "Thu phí điện nước tháng 4",
     "content": "Các phòng thanh toán phí điện nước trước 30/06"
 }
 
