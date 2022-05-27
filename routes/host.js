@@ -204,8 +204,9 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
             res.status(400).send("Host does not exist");
         } else {
             const list = postList[0].notification;
-            const lastPos = (lastPos <= list.length)? lastPos : list.length;
-            res.status(200).send(list.slice(firstPos, lastPos));
+            const last = lastPos <= list.length ? lastPos : list.length;
+            const result = await list.slice(firstPos, last)
+            res.status(200).send({'result': result});
         }
     } catch (err) {
         res.status(400).send(err);

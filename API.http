@@ -472,12 +472,9 @@ Room does not exist
 ##############################################################
 # Lấy danh sách thông báo
 # Gửi GET request đến server với phần body như bên dưới
-GET http://hostel0tdtd.herokuapp.com/host/24/notification
+GET http://hostel0tdtd.herokuapp.com/host/24/notification/page/1
 Content-Type: application/json
 
-{
-    "hostId": "3"
-}
 
 ###
 # Kết quả trả về có dạng như sau
@@ -517,7 +514,7 @@ POST http://hostel0tdtd.herokuapp.com/host/24/notification
 Content-Type: application/json
 
 {
-    "subject": "Thu phí điện nước tháng 1",
+    "subject": "Thu phí điện nước tháng 2",
     "content": "Các phòng thanh toán phí điện nước trước 30/06"
 }
 
