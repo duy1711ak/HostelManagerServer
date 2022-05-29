@@ -557,7 +557,7 @@ Host does not exist
 
 ###
 
-GET http://hostel0tdtd.herokuapp.com/host/24/notification/11
+GET http://hostel0tdtd.herokuapp.com/host/24/notification/0
 Content-Type: application/json
 
 

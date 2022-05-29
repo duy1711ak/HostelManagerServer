@@ -7,27 +7,19 @@ const userSchema = new mongoose.Schema({
     },
     name : {
         type: String,
-        required: true,
-        min: 6,
-        max: 255
+        required: true
     },
     phoneNum : {
         type: String,
-        required: true,
-        min: 8,
-        max: 20
+        required: true
     },
     username : {
         type: String,
-        required: true,
-        min: 6,
-        max: 255
+        required: true
     },
     password: {
         type: String,
-        required: true,
-        min: 6,
-        max: 255
+        required: true
     },
     isClient : {
         type: Boolean,

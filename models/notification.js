@@ -32,7 +32,6 @@ const notificationSchema = new mongoose.Schema({
         ],
         default: []
     }
-        
 })
 
 module.exports = mongoose.model("Notification", notificationSchema, "Notification")
