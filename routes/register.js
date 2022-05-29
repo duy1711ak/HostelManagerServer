@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
             res.status(400).send("Username already exists")
         } else {
             const newUser = await user.save();
-            res.send(newUser);
+            res.status(200).send("Successful");
         }
     } catch (err) {
         res.status(400).send(err);
