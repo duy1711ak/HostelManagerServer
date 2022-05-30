@@ -203,20 +203,34 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
             res.status(400).send("Host does not exist");
         } else {
             const list = postList[0].notification;
-            const last = lastPos <= list.length ? lastPos : list.length;
-            const result = await list.slice(-last, -firstPos).map(
-                (obj)=>{
-                    return {
-                        "id" : obj.id,
-                        "createAt" : obj.createAt,
-                        "subject": obj.subject
+            if (lastPos > list.length) lastPos = list.length;
+            var result = new Array();
+            if (firstPos == 0) {
+                result = await list.slice(list.length-lastPos).reverse().map(
+                    (obj)=>{
+                        return {
+                            "id" : obj.id,
+                            "createAt" : obj.createAt,
+                            "subject": obj.subject
+                        }
                     }
-                }
-            );
+                );
+            }
+            else {
+                result = await list.slice(list.length - lastPos, list.length - firstPos).reverse().map(
+                    (obj)=>{
+                        return {
+                            "id" : obj.id,
+                            "createAt" : obj.createAt,
+                            "subject": obj.subject
+                        }
+                    }
+                );
+            }
             
             res.status(200).send({
                 'total': list.length,
-                'result': result.reverse()});
+                'result': result});
         }
     } catch (err) {
         res.status(400).send(err);
