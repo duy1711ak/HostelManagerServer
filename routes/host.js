@@ -205,7 +205,7 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
             const list = postList[0].notification;
             if (lastPos > list.length) lastPos = list.length;
             var result = new Array();
-            if (firstPos == 0) {
+            if (firstPos === 0) {
                 result = await list.slice(list.length-lastPos).reverse().map(
                     (obj)=>{
                         return {
