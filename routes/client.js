@@ -57,7 +57,7 @@ router.get('/:cid/notification/page/:pageNum', async (req, res) => {
             var notification = await notificationModel.find({ "hostId": hostId });
             const list = notification[0].notification;
             const last = lastPos <= list.length ? lastPos : list.length;
-            const result = await list.slice(firstPos, last).map(
+            const result = await list.slice(-firstPos, -last).map(
                 (obj)=>{
                     return {
                         "id" : obj.id,
