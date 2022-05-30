@@ -197,36 +197,36 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
         const hostId = req.params.hid;
         const pageNum = req.params.pageNum;
         const firstPos = (parseInt(pageNum)-1)*10;
-        const lastPos = parseInt(pageNum)*10;
+        var lastPos = parseInt(pageNum)*10;
         const postList = await notificationModel.find({"hostId": hostId});
         if (postList.length == 0) {
             res.status(400).send("Host does not exist");
         } else {
             const list = postList[0].notification;
-            // if (lastPos > list.length) lastPos = list.length;
-            var result = lastPos;
-            // if (firstPos == 0) {
-            //     result = await list.slice(list.length-lastPos).reverse().map(
-            //         (obj)=>{
-            //             return {
-            //                 "id" : obj.id,
-            //                 "createAt" : obj.createAt,
-            //                 "subject": obj.subject
-            //             }
-            //         }
-            //     );
-            // }
-            // else {
-            //     result = await list.slice(0, 3).map(
-            //         (obj)=>{
-            //             return {
-            //                 "id" : obj.id,
-            //                 "createAt" : obj.createAt,
-            //                 "subject": obj.subject
-            //             }
-            //         }
-            //     );
-            // }
+            if (lastPos > list.length) lastPos = list.length;
+            var result = new Array();
+            if (firstPos == 0) {
+                result = await list.slice(list.length-lastPos).reverse().map(
+                    (obj)=>{
+                        return {
+                            "id" : obj.id,
+                            "createAt" : obj.createAt,
+                            "subject": obj.subject
+                        }
+                    }
+                );
+            }
+            else {
+                result = await list.slice(list.length-lastPos, list.length-firstPos).reverse().map(
+                    (obj)=>{
+                        return {
+                            "id" : obj.id,
+                            "createAt" : obj.createAt,
+                            "subject": obj.subject
+                        }
+                    }
+                );
+            }
             
             res.status(200).send({
                 'total': list.length,
