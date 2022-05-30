@@ -196,8 +196,8 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
     try {
         const hostId = req.params.hid;
         const pageNum = req.params.pageNum;
-        const firstPos = (pageNum-1)*10;
-        const lastPos = pageNum*10;
+        const firstPos = (parseInt(pageNum)-1)*10;
+        const lastPos = parseInt(pageNum)*10;
         const postList = await notificationModel.find({"hostId": hostId});
         if (postList.length == 0) {
             res.status(400).send("Host does not exist");
