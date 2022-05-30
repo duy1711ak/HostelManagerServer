@@ -217,7 +217,7 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
                 );
             }
             else {
-                result = await list.slice(0, 3).reverse().map(
+                result = await list.slice(0, 3).map(
                     (obj)=>{
                         return {
                             "id" : obj.id,
