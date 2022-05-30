@@ -204,30 +204,29 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
         } else {
             const list = postList[0].notification;
             if (lastPos > list.length) lastPos = list.length;
-            var result = new Array();
-            if (firstPos === 0) {
-                result = await list.slice(list.length-lastPos).reverse().map(
-                    (obj)=>{
-                        return {
-                            "id" : obj.id,
-                            "createAt" : obj.createAt,
-                            "subject": obj.subject
-                        }
-                    }
-                );
-            }
-            else {
-                result = pageNum;
-                // await list.slice(0, 3).map(
-                //     (obj)=>{
-                //         return {
-                //             "id" : obj.id,
-                //             "createAt" : obj.createAt,
-                //             "subject": obj.subject
-                //         }
-                //     }
-                // );
-            }
+            var result = firstPos;
+            // if (firstPos == 0) {
+            //     result = await list.slice(list.length-lastPos).reverse().map(
+            //         (obj)=>{
+            //             return {
+            //                 "id" : obj.id,
+            //                 "createAt" : obj.createAt,
+            //                 "subject": obj.subject
+            //             }
+            //         }
+            //     );
+            // }
+            // else {
+            //     result = await list.slice(0, 3).map(
+            //         (obj)=>{
+            //             return {
+            //                 "id" : obj.id,
+            //                 "createAt" : obj.createAt,
+            //                 "subject": obj.subject
+            //             }
+            //         }
+            //     );
+            // }
             
             res.status(200).send({
                 'total': list.length,
