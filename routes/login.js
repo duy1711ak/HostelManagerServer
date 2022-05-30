@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
             const acccessToken = jwt.sign({data}, process.env.ACCESS_TOKEN_SECRET, {
                 expiresIn: "86400s",
             });
-            res.status(200).send(existUser[0]);
+            res.status(200).send({user: existUser[0]});
         } catch (err) {
             res.status(400).send("Error");
         }
