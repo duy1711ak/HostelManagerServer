@@ -204,7 +204,7 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
         } else {
             const list = postList[0].notification;
             const last = lastPos <= list.length ? lastPos : list.length;
-            const result = await list.slice(-firstPos, -last).map(
+            const result = await list.slice(-last, -firstPos).map(
                 (obj)=>{
                     return {
                         "id" : obj.id,
@@ -216,7 +216,7 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
             
             res.status(200).send({
                 'total': list.length,
-                'result': result});
+                'result': result.reverse()});
         }
     } catch (err) {
         res.status(400).send(err);
