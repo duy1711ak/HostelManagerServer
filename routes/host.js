@@ -217,15 +217,16 @@ router.get('/:hid/notification/page/:pageNum', async (req, res) => {
                 );
             }
             else {
-                result = await list.slice(0, 3).map(
-                    (obj)=>{
-                        return {
-                            "id" : obj.id,
-                            "createAt" : obj.createAt,
-                            "subject": obj.subject
-                        }
-                    }
-                );
+                result = pageNum;
+                // await list.slice(0, 3).map(
+                //     (obj)=>{
+                //         return {
+                //             "id" : obj.id,
+                //             "createAt" : obj.createAt,
+                //             "subject": obj.subject
+                //         }
+                //     }
+                // );
             }
             
             res.status(200).send({
