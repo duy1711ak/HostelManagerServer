@@ -148,8 +148,10 @@ router.put('/:id/rooms/:rid', async (req, res) => {
                     res.status(400).send("Room does not exist");
                 } else {
                     existRoom = existRoom[0];
+                    const oldRoom = existRoom.roomName;
                     existRoom.roomName = req.body.roomName;
-                    var newRoomList = await roomModel.findOneAndUpdate({ hostId: hId }, { roomList: roomList } , { new: true })
+                    await roomModel.findOneAndUpdate({ hostId: hId }, { roomList: roomList } , { new: true })
+                    await clientModel.updateMany({roomName: oldRoom}, {roomName: req.body.roomName});
                     res.status(200).send();
                 }
             }
