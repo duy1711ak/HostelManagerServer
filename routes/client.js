@@ -47,7 +47,7 @@ router.get('/:cid/notification/page/:pageNum', async (req, res) => {
         const clientId = req.params.cid;
         const pageNum = req.params.pageNum;
         const firstPos = (parseInt(pageNum)-1)*10;
-        const lastPos = parseInt(pageNum) * 10;
+        var lastPos = parseInt(pageNum) * 10;
         var clientInfo = await clientsModel.find({ "clientId": clientId });
         if (clientInfo.length == 0) {
             res.status(400).send({message: "Client is not added to any room"});
@@ -59,20 +59,18 @@ router.get('/:cid/notification/page/:pageNum', async (req, res) => {
             if (lastPos > list.length) lastPos = list.length;
             var result = new Array();
             if (firstPos == 0) {
-                result = 0;
-                // await list.slice(list.length-lastPos).reverse().map(
-                //     (obj)=>{
-                //         return {
-                //             "id" : obj.id,
-                //             "createAt" : obj.createAt,
-                //             "subject": obj.subject
-                //         }
-                //     }
-                // );
+                result = await list.slice(list.length-lastPos).reverse().map(
+                    (obj)=>{
+                        return {
+                            "id" : obj.id,
+                            "createAt" : obj.createAt,
+                            "subject": obj.subject
+                        }
+                    }
+                );
             }
             else {
-                result = 1;
-                await list.slice(0).reverse().map(
+                result = await list.slice(list.length - lastPos, list.length - firstPos).reverse().map(
                     (obj)=>{
                         return {
                             "id" : obj.id,
