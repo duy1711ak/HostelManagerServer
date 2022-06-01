@@ -70,7 +70,7 @@ router.get('/:cid/notification/page/:pageNum', async (req, res) => {
                 );
             }
             else {
-                result = await list.slice(list.length - lastPos, list.length - firstPos).reverse().map(
+                result = await list.slice(0).reverse().map(
                     (obj)=>{
                         return {
                             "id" : obj.id,
