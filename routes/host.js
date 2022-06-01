@@ -183,9 +183,11 @@ router.delete('/:id/rooms/:rid', async (req, res) => {
                     if (clientInRoom.length != 0) {
                         res.status(400).send({message: "This room still have client"});
                     }
-                    var newRoomList = roomList.filter((x) => x.roomId != roomId);
-                    newRoomList = await roomModel.findOneAndUpdate({ hostId: hId }, { roomList: newRoomList } , { new: true })
-                    res.status(200).send("Room is successfully deleted");
+                    else {
+                        var newRoomList = roomList.filter((x) => x.roomId != roomId);
+                        newRoomList = await roomModel.findOneAndUpdate({ hostId: hId }, { roomList: newRoomList } , { new: true })
+                        res.status(200).send("Room is successfully deleted");
+                    }
                 }
             }
         }
