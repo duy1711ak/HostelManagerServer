@@ -59,18 +59,20 @@ router.get('/:cid/notification/page/:pageNum', async (req, res) => {
             if (lastPos > list.length) lastPos = list.length;
             var result = new Array();
             if (firstPos == 0) {
-                result = await list.slice(list.length-lastPos).reverse().map(
-                    (obj)=>{
-                        return {
-                            "id" : obj.id,
-                            "createAt" : obj.createAt,
-                            "subject": obj.subject
-                        }
-                    }
-                );
+                result = 0;
+                // await list.slice(list.length-lastPos).reverse().map(
+                //     (obj)=>{
+                //         return {
+                //             "id" : obj.id,
+                //             "createAt" : obj.createAt,
+                //             "subject": obj.subject
+                //         }
+                //     }
+                // );
             }
             else {
-                result = await list.slice(0).reverse().map(
+                result = 1;
+                await list.slice(0).reverse().map(
                     (obj)=>{
                         return {
                             "id" : obj.id,
