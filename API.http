@@ -8,8 +8,8 @@ Content-Type: application/json
 {    
     "name": "minh duy",
     "phoneNum": "1234",
-    "username": "d",
-    "password": "d",
+    "username": "y",
+    "password": "y",
     "isClient": false,
     "address": "Ho Chi Minh City",
     "hostelName": "Hostel A"
