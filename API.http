@@ -168,7 +168,7 @@ Client is not added to any room
 ##############################################################
 # Lấy danh sách thông báo ứng với clientId
 # Gửi GET request đến server với phần body như bên dưới
-GET http://hostel0tdtd.herokuapp.com/client/10/notification/page/1
+GET http://hostel0tdtd.herokuapp.com/client/2/notification/page/2
 Content-Type: application/json
 
 
@@ -242,13 +242,13 @@ Invalid host id
 ##############################################################
 # Thêm người thuê ứng với hostId (thêm người thuê vào phòng, nhà trọ)
 # Gửi POST request đến server với phần body như bên dưới
-POST http://hostel0tdtd.herokuapp.com/host/24/clients
+POST http://hostel0tdtd.herokuapp.com/host/1/clients
 Content-Type: application/json
 
 {
-    "clientId": "10",
+    "clientId": "2",
     "roomName": "001",
-    "phoneNum": "65"
+    "phoneNum": "363636"
 }
 
 ###
@@ -473,7 +473,7 @@ Room does not exist
 ##############################################################
 # Lấy danh sách thông báo
 # Gửi GET request đến server với phần body như bên dưới
-GET http://hostel0tdtd.herokuapp.com/host/24/notification/page/1
+GET http://hostel0tdtd.herokuapp.com/host/1/notification/page/2
 Content-Type: application/json
 
 
